@@ -1,65 +1,103 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import NeonGridBackground from "@/components/NeonGridBackground";
+import AnimatedElement from "@/components/AnimatedElement";
 
 export default function Home() {
+  // Parallax effect: track scroll position
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Transform scroll into Y position and opacity
+  const yHero = useTransform(scrollYProgress, [0, 0.4], [0, 200]);
+  const opacityHero = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            NoamBuilds — Portfolio under construction
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div ref={containerRef} className="min-h-screen bg-background text-foreground">
+      {/* HERO SECTION */}
+      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <NeonGridBackground />
+
+        <div className="relative z-10 w-full max-w-[120rem] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Left: Text content */}
+          <motion.div
+            className="lg:col-span-8"
+            style={{ y: yHero, opacity: opacityHero }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <AnimatedElement>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="h-[1px] w-12 bg-primary"></div>
+                <span className="text-primary font-medium tracking-widest text-sm uppercase">
+                  Fullstack Developer
+                </span>
+              </div>
+            </AnimatedElement>
+
+            <AnimatedElement delay={100}>
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.9] tracking-tighter mb-8">
+                NOAM<br />
+                <span className="text-stroke">BUILDS</span>
+              </h1>
+            </AnimatedElement>
+
+            <AnimatedElement delay={200}>
+              <p className="text-xl md:text-2xl text-foreground/60 max-w-2xl leading-relaxed mb-12 border-l-2 border-primary/30 pl-6">
+                I engineer digital reality. Building robust full-stack applications,
+                intelligent automation pipelines, and AI-driven workflows that solve real problems.
+              </p>
+            </AnimatedElement>
+
+            <AnimatedElement delay={300}>
+              <div className="flex flex-wrap gap-6">
+                <Link href="/projects">
+                  <button className="bg-primary text-black hover:bg-primary/90 h-14 px-8 text-lg font-bold border border-primary transition-all hover:translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)]">
+                    Explore Work <ArrowRight className="inline ml-2 w-5 h-5" />
+                  </button>
+                </Link>
+                <Link href="/contact">
+                  <button className="h-14 px-8 text-lg font-bold border border-white/20 hover:bg-white/5 hover:text-primary hover:border-primary transition-colors">
+                    Initiate Contact
+                  </button>
+                </Link>
+              </div>
+            </AnimatedElement>
+          </motion.div>
+
+          {/* Right: Brand image */}
+          <motion.div
+            className="hidden lg:block lg:col-span-4 relative h-[600px] w-full"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
           >
-            Documentation
-          </a>
+            <div className="absolute inset-0 border border-white/10 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-30 mix-blend-overlay"></div>
+              <Image
+                src="/brand/SocialProfileImage.jpg"
+                alt="NoamBuilds brand illustration"
+                fill
+                className="object-cover opacity-90 hover:opacity-100 transition-opacity duration-700"
+                priority
+              />
+
+            </div>
+          </motion.div>
         </div>
-      </main>
+
+      </section>
+
+      {/* Placeholder for next sections */}
+      <section className="min-h-screen flex items-center justify-center">
+        <p className="text-foreground/50">More sections coming soon...</p>
+      </section>
     </div>
   );
 }

@@ -26,3 +26,28 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
 }
+
+/* Scroll-triggered fade-in animation */
+.animate-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Text stroke effect for hero title */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: transparent;
+  transition: all 0.3s ease;
+}
+
+.text-stroke:hover {
+  -webkit-text-stroke: 1px var(--primary);
+  color: rgba(0, 255, 150, 0.1);
+}

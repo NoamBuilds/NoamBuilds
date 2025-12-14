@@ -22,7 +22,7 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Nav Links */}
-                    <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-12">
+                    <div className="hidden md:flex items-center gap-12">
                         {siteConfig.nav.map((item) => {
                             const isActive = pathname === item.href;
                             return (
