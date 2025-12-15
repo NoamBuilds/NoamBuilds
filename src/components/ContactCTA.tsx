@@ -45,9 +45,9 @@ export default function ContactCTA() {
 
                 <AnimatedElement delay={300}>
                     <div className="flex justify-center">
-                        <SocialLinks 
-                            size="lg" 
-                            include={["github", "linkedin", "youtube", "x", "instagram"]} 
+                        <SocialLinks
+                            size="lg"
+                            include={["github", "linkedin", "youtube", "x", "instagram"]}
                         />
                     </div>
                 </AnimatedElement>

@@ -69,8 +69,8 @@ export default function AboutPage() {
                                             with a strong focus on fullstack development and system architecture.
                                         </p>
                                         <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed mb-6">
-                                            I specialize in building end-to-end systems that solve real problems—from
-                                            full-stack web applications to automation pipelines and AI-powered workflows.
+                                            I specialize in building end-to-end systems that solve real problems, from
+                                            fullstack web applications to automation pipelines and AI-powered workflows.
                                         </p>
                                         <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed">
                                             My approach combines solid engineering fundamentals with a product mindset,

@@ -57,7 +57,7 @@ type SocialLinksProps = {
     showLabels?: boolean;
     className?: string;
     // Which links to show (defaults to all)
-    include?: ("github" | "linkedin" | "instagram" | "tiktok" | "facebook" | "youtube" | "x" | "threads")[];
+    include?: ("email" | "github" | "linkedin" | "instagram" | "tiktok" | "facebook" | "youtube" | "x" | "threads")[];
 };
 
 const sizeClasses = {

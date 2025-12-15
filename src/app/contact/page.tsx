@@ -65,8 +65,7 @@ export default function ContactPage() {
                             Get In <span className="text-primary">Touch</span>
                         </h1>
                         <p className="text-xl text-foreground/70 mb-16 max-w-3xl">
-                            I&apos;m always open to discussing new opportunities, collaborations, or just chatting
-                            about tech. Feel free to reach out!
+                            I&apos;m always open to discussing new opportunities, collaborations. Feel free to reach out!
                         </p>
                     </AnimatedElement>
 
