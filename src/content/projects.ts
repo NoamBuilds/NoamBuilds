@@ -31,8 +31,8 @@ export const projects: Project[] = [
         techStack: ["React", "Node.js", "Express", "PostgreSQL", "JavaScript"],
         thumbnailImage: "/projects/rekem/thumbnail.png",
         images: [
-            "/projects/rekem/screen-1.png",
-            "/projects/rekem/screen-2.png",
+            "/projects/rekem/screen-1.jpg",
+            "/projects/rekem/screen-2.jpg",
             "/projects/rekem/screen-3.png",
         ],
         demoLink: undefined, // Add if you have a live demo
@@ -77,10 +77,9 @@ export const projects: Project[] = [
         techStack: ["Python", "Pygame", "JSON", "Object Oriented", "Dynamic Architecture"],
         thumbnailImage: "/projects/platformer/thumbnail.gif",
         images: [
-            "/projects/platformer/game1.gif",
-            "/projects/platformer/game2.gif",
-            "/projects/platformer/game3.gif",
-            "/projects/platformer/game4.gif",
+            "/projects/platformer/Game1.gif",
+            "/projects/platformer/Editor1.gif",
+            "/projects/platformer/Camera1.gif",
         ],
         demoLink: undefined,
         githubLink: "https://github.com/moanzx/Platformer",
