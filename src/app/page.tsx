@@ -9,6 +9,7 @@ import NeonGridBackground from "@/components/NeonGridBackground";
 import AnimatedElement from "@/components/AnimatedElement";
 import SkillsMarquee from "@/components/SkillsMarquee";
 import PhilosophySection from "@/components/PhilosophySection";
+import FeaturedProjects from "@/components/FeaturedProjects";
 
 export default function Home() {
   // Parallax effect: track scroll position
@@ -101,6 +102,9 @@ export default function Home() {
 
       {/* Philosophy Section */}
       <PhilosophySection />
+
+      {/* Featured Projects */}
+      <FeaturedProjects />
 
       {/* Placeholder for next sections */}
       <section className="min-h-screen flex items-center justify-center">
