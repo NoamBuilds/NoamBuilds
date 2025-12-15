@@ -10,6 +10,8 @@ import AnimatedElement from "@/components/AnimatedElement";
 import SkillsMarquee from "@/components/SkillsMarquee";
 import PhilosophySection from "@/components/PhilosophySection";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import ImageBreak from "@/components/ImageBreak";
+import ContactCTA from "@/components/ContactCTA";
 
 export default function Home() {
   // Parallax effect: track scroll position
@@ -106,10 +108,14 @@ export default function Home() {
       {/* Featured Projects */}
       <FeaturedProjects />
 
-      {/* Placeholder for next sections */}
-      <section className="min-h-screen flex items-center justify-center">
-        <p className="text-foreground/50">More sections coming soon...</p>
-      </section>
+      {/* Big Image Break */}
+      <ImageBreak
+        imageSrc="/brand/SocialCoverImage.png"
+        text={["BUILD", "SHIP", "REPEAT"]}
+      />
+
+      {/* Contact CTA */}
+      <ContactCTA />
     </div>
   );
 }

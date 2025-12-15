@@ -97,7 +97,7 @@ The AI agent asks clarifying questions to understand your project context, then 
 - Surface caching for efficient tile rendering
 
 **Technical Highlights:**
-- Dynamic Entity-Component design for modularity and reusability
+- Dynamic Object Oriented design for modularity and reusability
 - Grid-based spatial indexing for fast lookups and optimized collision
 - State machines drive animations, game logic, and UI behavior
 - JSON used across levels, assets, and animation configurations
