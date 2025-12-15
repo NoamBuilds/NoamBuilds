@@ -17,6 +17,7 @@ export const siteConfig = {
     // Navigation items
     nav: [
         { label: "Home", href: "/" },
+        { label: "Apps", href: "/apps" },
         { label: "Projects", href: "/projects" },
         { label: "About", href: "/about" },
         { label: "Contact", href: "/contact" },
@@ -36,7 +37,7 @@ export const siteConfig = {
     // Philosophy section
     philosophy: {
         label: "HOW I WORK",
-        description: "I like moving quickly and shipping real features. I use tools like Cursor to iterate fast, but I keep the codebase organized and easy to change—so adding the next feature doesn’t turn into a rewrite.",
+        description: "I like moving quickly and shipping real features. I use tools like Cursor to iterate fast, but I keep the codebase organized and easy to change, so adding the next feature doesn’t turn into a rewrite.",
         headline: "I build fullstack products fast without sacrificing clean, maintainable code.",
         cards: [
             {

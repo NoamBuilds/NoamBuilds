@@ -15,34 +15,6 @@ export type Project = {
 
 export const projects: Project[] = [
     {
-        id: "nudgeme",
-        title: "NudgeMe",
-        summary: "AI-powered productivity app with smart reminders and agent-driven project planning.",
-        description: `NudgeMe is a productivity application that helps users break down complex goals into manageable tasks using AI-driven planning.
-
-The app features:
-- Smart reminders that adapt to your progress
-- AI agent that creates structured project plans through conversational interface
-- Progress tracking with streaks and daily goals
-- Visual project roadmaps with phase/task breakdown
-- Built with Expo (React Native) for cross-platform mobile experience
-
-The AI agent asks clarifying questions to understand your project context, then generates a detailed, phased plan you can edit and track over time.`,
-        techStack: ["Expo", "React Native", "Supabase", "LangChain", "TypeScript"],
-        thumbnailImage: "/projects/nudgeme/thumbnail.png",
-        images: [
-            "/projects/nudgeme/screen-1.png",
-            "/projects/nudgeme/screen-2.png",
-            "/projects/nudgeme/screen-3.png",
-            "/projects/nudgeme/screen-4.png",
-            "/projects/nudgeme/screen-5.png",
-        ],
-        demoLink: undefined, // Add if you have a live demo
-        githubLink: "private", // Special value to show "Private repo" button
-        featured: true,
-        order: 1,
-    },
-    {
         id: "rekem",
         title: "Rekem",
         summary: "Fullstack transport event manager web app, built during IBM internship.",

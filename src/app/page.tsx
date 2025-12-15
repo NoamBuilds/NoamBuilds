@@ -9,6 +9,7 @@ import NeonGridBackground from "@/components/NeonGridBackground";
 import AnimatedElement from "@/components/AnimatedElement";
 import SkillsMarquee from "@/components/SkillsMarquee";
 import PhilosophySection from "@/components/PhilosophySection";
+import FeaturedApps from "@/components/FeaturedApps";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import ImageBreak from "@/components/ImageBreak";
 import ContactCTA from "@/components/ContactCTA";
@@ -105,7 +106,10 @@ export default function Home() {
       {/* Philosophy Section */}
       <PhilosophySection />
 
-      {/* Featured Projects */}
+      {/* Featured Apps (primary) */}
+      <FeaturedApps />
+
+      {/* Featured Projects (secondary) */}
       <FeaturedProjects />
 
       {/* Big Image Break */}
