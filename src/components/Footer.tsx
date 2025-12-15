@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Github, Linkedin, Mail } from "lucide-react";
 import { siteConfig } from "@/content/site";
+import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
     return (
@@ -23,37 +23,9 @@ export default function Footer() {
                     </div>
 
                     {/* Right: Social Icons */}
-                    <div className="flex gap-6">
-                        <a
-                            href={`mailto:${siteConfig.links.email}`}
-                            className="text-foreground/50 hover:text-primary transition-colors"
-                            aria-label="Email"
-                        >
-                            <Mail className="w-10 h-10" />
-                        </a>
-                        <a
-                            href={siteConfig.links.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-foreground/50 hover:text-primary transition-colors"
-                            aria-label="GitHub"
-                        >
-                            <Github className="w-10 h-10" />
-                        </a>
-                        <a
-                            href={siteConfig.links.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-foreground/50 hover:text-primary transition-colors"
-                            aria-label="LinkedIn"
-                        >
-                            <Linkedin className="w-10 h-10" />
-                        </a>
-                    </div>
+                    <SocialLinks size="sm" />
                 </div>
-
             </div>
         </footer>
     );
 }
-

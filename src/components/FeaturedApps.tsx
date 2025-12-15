@@ -12,7 +12,7 @@ export default function FeaturedApps() {
         techStack: app.techStack,
         thumbnailImage: app.thumbnailImage,
         primaryAction: {
-            label: app.ctaLabel || "Learn more",
+            label: "Learn more",
             href: app.ctaLink || `/apps/${app.id}`,
         },
         githubLink: undefined, // Apps don't show GitHub by default

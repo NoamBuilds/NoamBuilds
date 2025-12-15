@@ -1,71 +1,210 @@
-import { Mail, Github, Linkedin } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Mail, Send, Loader2, Check } from "lucide-react";
 import AnimatedElement from "@/components/AnimatedElement";
 import NeonGridBackground from "@/components/NeonGridBackground";
+import SocialLinks from "@/components/SocialLinks";
 import { siteConfig } from "@/content/site";
 
-export const metadata = {
-    title: "Contact",
-    description: "Get in touch with NoamBuilds for collaborations, projects, or opportunities.",
-};
-
 export default function ContactPage() {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: "",
+    });
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (status === "loading") return;
+
+        setStatus("loading");
+        setErrorMessage("");
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setStatus("error");
+                setErrorMessage(data.error || "Something went wrong");
+                return;
+            }
+
+            setStatus("success");
+            setFormData({ name: "", email: "", message: "" });
+        } catch {
+            setStatus("error");
+            setErrorMessage("Network error. Please try again.");
+        }
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
     return (
         <div className="min-h-screen bg-background text-foreground">
             <main className="pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
                 <NeonGridBackground />
-                <div className="max-w-[100rem] mx-auto text-center relative z-10">
+
+                <div className="max-w-[100rem] mx-auto relative z-10">
+                    {/* Header */}
                     <AnimatedElement>
-                        <h1 className="text-6xl md:text-8xl font-bold mb-6">
-                            Get in <span className="text-primary">Touch</span>
+                        <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                            Get In <span className="text-primary">Touch</span>
                         </h1>
-                        <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-12">
-                            Whether you have a project idea, a job opportunity, or just want to connect, I'd love to hear from you.
+                        <p className="text-xl text-foreground/70 mb-16 max-w-3xl">
+                            I&apos;m always open to discussing new opportunities, collaborations, or just chatting
+                            about tech. Feel free to reach out!
                         </p>
                     </AnimatedElement>
 
-                    {/* Contact Options */}
-                    <AnimatedElement delay={100}>
-                        <div className="flex flex-col items-center gap-8 mb-24">
-                            <a
-                                href={`mailto:${siteConfig.links.email}`}
-                                className="group relative inline-flex items-center justify-center px-12 py-6 overflow-hidden font-bold text-white transition-all duration-300 bg-transparent border border-white hover:bg-white hover:text-black"
-                            >
-                                <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-80 group-hover:h-80 opacity-10"></span>
-                                <span className="relative flex items-center gap-3 text-xl">
-                                    <Mail className="w-6 h-6" /> {siteConfig.links.email}
-                                </span>
-                            </a>
-                            <p className="text-foreground/50 text-sm">
-                                This is a placeholder page — we'll add a proper contact form or more context later.
-                            </p>
-                        </div>
-                    </AnimatedElement>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        {/* Left: Contact Info */}
+                        <AnimatedElement delay={100}>
+                            <div>
+                                <h2 className="text-3xl font-semibold mb-8">
+                                    Contact Information
+                                </h2>
 
-                    {/* Social Links */}
-                    <AnimatedElement delay={200}>
-                        <h2 className="text-3xl font-bold mb-8">Connect with me</h2>
-                        <div className="flex justify-center gap-12">
-                            <a
-                                href={siteConfig.links.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-foreground/50 hover:text-primary transition-colors transform hover:scale-110 duration-300"
-                            >
-                                <Github className="w-12 h-12" />
-                            </a>
-                            <a
-                                href={siteConfig.links.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-foreground/50 hover:text-primary transition-colors transform hover:scale-110 duration-300"
-                            >
-                                <Linkedin className="w-12 h-12" />
-                            </a>
-                        </div>
-                    </AnimatedElement>
+                                {/* Email Card */}
+                                <a
+                                    href={`mailto:${siteConfig.links.email}`}
+                                    className="flex items-center gap-4 text-foreground/70 hover:text-primary transition-colors duration-200 group mb-8"
+                                >
+                                    <div className="w-14 h-14 bg-dark-grey border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors duration-200">
+                                        <Mail className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-foreground/50">Email</p>
+                                        <p className="text-lg">{siteConfig.links.email}</p>
+                                    </div>
+                                </a>
+
+                                {/* Social Links Section */}
+                                <div className="mt-12 p-8 bg-dark-grey border border-white/10">
+                                    <h3 className="text-xl font-semibold mb-6">
+                                        Connect with me
+                                    </h3>
+                                    <SocialLinks size="lg" include={["linkedin", "github", "x"]} />
+                                </div>
+                            </div>
+                        </AnimatedElement>
+
+                        {/* Right: Contact Form */}
+                        <AnimatedElement delay={200}>
+                            <div>
+                                <h2 className="text-3xl font-semibold mb-8">
+                                    Send a Message
+                                </h2>
+
+                                {status === "success" ? (
+                                    <div className="p-8 bg-dark-grey border border-primary/30 text-center">
+                                        <div className="flex justify-center mb-4">
+                                            <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
+                                                <Check className="w-8 h-8 text-primary" />
+                                            </div>
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-primary mb-2">Message Sent!</h3>
+                                        <p className="text-foreground/70">
+                                            Thanks for reaching out. I&apos;ll get back to you soon.
+                                        </p>
+                                        <button
+                                            onClick={() => setStatus("idle")}
+                                            className="mt-6 text-primary hover:underline"
+                                        >
+                                            Send another message
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <form onSubmit={handleSubmit} className="space-y-6">
+                                        <div>
+                                            <label htmlFor="name" className="block text-sm text-foreground/70 mb-2">
+                                                Name
+                                            </label>
+                                            <input
+                                                id="name"
+                                                name="name"
+                                                type="text"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                required
+                                                disabled={status === "loading"}
+                                                className="w-full px-4 py-4 bg-dark-grey border border-white/10 text-foreground focus:outline-none focus:border-primary disabled:opacity-50 transition-colors"
+                                                placeholder="Your name"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label htmlFor="email" className="block text-sm text-foreground/70 mb-2">
+                                                Email
+                                            </label>
+                                            <input
+                                                id="email"
+                                                name="email"
+                                                type="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                required
+                                                disabled={status === "loading"}
+                                                className="w-full px-4 py-4 bg-dark-grey border border-white/10 text-foreground focus:outline-none focus:border-primary disabled:opacity-50 transition-colors"
+                                                placeholder="your.email@example.com"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label htmlFor="message" className="block text-sm text-foreground/70 mb-2">
+                                                Message
+                                            </label>
+                                            <textarea
+                                                id="message"
+                                                name="message"
+                                                value={formData.message}
+                                                onChange={handleChange}
+                                                required
+                                                disabled={status === "loading"}
+                                                rows={6}
+                                                className="w-full px-4 py-4 bg-dark-grey border border-white/10 text-foreground focus:outline-none focus:border-primary disabled:opacity-50 resize-none transition-colors"
+                                                placeholder="Your message..."
+                                            />
+                                        </div>
+
+                                        {errorMessage && (
+                                            <p className="text-red-400 text-sm">{errorMessage}</p>
+                                        )}
+
+                                        <button
+                                            type="submit"
+                                            disabled={status === "loading"}
+                                            className="w-full py-4 bg-primary text-black font-bold hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                                        >
+                                            {status === "loading" ? (
+                                                <Loader2 className="w-5 h-5 animate-spin" />
+                                            ) : (
+                                                <>
+                                                    <Send className="w-5 h-5" />
+                                                    Send Message
+                                                </>
+                                            )}
+                                        </button>
+                                    </form>
+                                )}
+                            </div>
+                        </AnimatedElement>
+                    </div>
                 </div>
             </main>
         </div>
     );
 }
-

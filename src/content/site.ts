@@ -12,6 +12,12 @@ export const siteConfig = {
         email: "noambuilds@gmail.com",
         github: "https://github.com/NoamBuilds",
         linkedin: "https://www.linkedin.com/company/noambuilds/",
+        instagram: "https://www.instagram.com/noambuilds/",
+        tiktok: "https://www.tiktok.com/@noambuilds",
+        facebook: "https://www.facebook.com/profile.php?id=61585083021727",
+        youtube: "https://www.youtube.com/@NoamBuilds",
+        x: "https://x.com/NoamBuilds",
+        threads: "https://www.threads.com/@noambuilds",
     },
 
     // Navigation items

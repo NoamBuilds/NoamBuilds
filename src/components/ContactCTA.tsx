@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, Mail, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { siteConfig } from "@/content/site";
 import NeonGridBackground from "./NeonGridBackground";
 import AnimatedElement from "./AnimatedElement";
+import SocialLinks from "./SocialLinks";
 
 export default function ContactCTA() {
     return (
@@ -43,29 +44,14 @@ export default function ContactCTA() {
                 </AnimatedElement>
 
                 <AnimatedElement delay={300}>
-                    <div className="flex justify-center gap-12">
-                        <a
-                            href={siteConfig.links.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-foreground/50 hover:text-primary transition-colors transform hover:scale-110 duration-300"
-                            aria-label="GitHub"
-                        >
-                            <Github className="w-12 h-12" />
-                        </a>
-                        <a
-                            href={siteConfig.links.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-foreground/50 hover:text-primary transition-colors transform hover:scale-110 duration-300"
-                            aria-label="LinkedIn"
-                        >
-                            <Linkedin className="w-12 h-12" />
-                        </a>
+                    <div className="flex justify-center">
+                        <SocialLinks 
+                            size="lg" 
+                            include={["github", "linkedin", "youtube", "x", "instagram"]} 
+                        />
                     </div>
                 </AnimatedElement>
             </div>
         </section>
     );
 }
-
