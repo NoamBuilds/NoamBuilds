@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 import NeonGridBackground from "@/components/NeonGridBackground";
 import AnimatedElement from "@/components/AnimatedElement";
 import SkillsMarquee from "@/components/SkillsMarquee";
+import PhilosophySection from "@/components/PhilosophySection";
 
 export default function Home() {
   // Parallax effect: track scroll position
@@ -97,6 +98,9 @@ export default function Home() {
 
       {/* Skills Marquee */}
       <SkillsMarquee />
+
+      {/* Philosophy Section */}
+      <PhilosophySection />
 
       {/* Placeholder for next sections */}
       <section className="min-h-screen flex items-center justify-center">
