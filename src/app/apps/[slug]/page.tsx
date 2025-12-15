@@ -5,6 +5,7 @@ import { ArrowLeft, Apple, Play } from "lucide-react";
 import { apps, getAppById } from "@/content/apps";
 import AnimatedElement from "@/components/AnimatedElement";
 import ProjectGallery from "@/components/ProjectGallery";
+import WaitlistForm from "@/components/WaitlistForm";
 import type { Metadata } from "next";
 
 // --- STATIC GENERATION ---
@@ -234,18 +235,7 @@ export default async function AppDetailPage({ params }: Props) {
                                 Be the first to know when {app.title} launches.
                             </p>
 
-                            {/* Placeholder for actual waitlist form */}
-                            <div className="p-8 border border-white/10 bg-white/5">
-                                <p className="text-foreground/50 mb-6">
-                                    Waitlist form coming soon. For now, reach out directly:
-                                </p>
-                                <a
-                                    href="mailto:noambuilds@gmail.com?subject=Waitlist: ${app.title}"
-                                    className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold hover:bg-primary/90 transition-all"
-                                >
-                                    Contact Me
-                                </a>
-                            </div>
+                            <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
                         </AnimatedElement>
                     </div>
                 </section>
