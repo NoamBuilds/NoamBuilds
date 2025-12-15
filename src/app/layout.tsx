@@ -46,6 +46,51 @@ export const metadata: Metadata = {
   },
 };
 
+// JSON-LD structured data for SEO
+// Tells Google: "This is a person named Noam who builds software"
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      url: siteConfig.url,
+      name: siteConfig.name,
+      description: siteConfig.description,
+      publisher: {
+        "@id": `${siteConfig.url}/#person`,
+      },
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      name: "Noam",
+      url: siteConfig.url,
+      sameAs: [
+        siteConfig.links.github,
+        siteConfig.links.linkedin,
+        siteConfig.links.x,
+        siteConfig.links.youtube,
+        siteConfig.links.instagram,
+      ],
+      jobTitle: "Fullstack Developer",
+      description: siteConfig.description,
+      knowsAbout: [
+        "React",
+        "React Native",
+        "Expo",
+        "Supabase",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "LangChain",
+        "AI Workflows",
+        "Cursor",
+      ],
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -53,6 +98,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

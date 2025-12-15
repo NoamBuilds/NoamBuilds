@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Apple, Play } from "lucide-react";
 import { apps, getAppById } from "@/content/apps";
+import { siteConfig } from "@/content/site";
 import AnimatedElement from "@/components/AnimatedElement";
 import ProjectGallery from "@/components/ProjectGallery";
 import WaitlistForm from "@/components/WaitlistForm";
@@ -48,8 +49,35 @@ export default async function AppDetailPage({ params }: Props) {
         notFound();
     }
 
+    // JSON-LD for this specific app (SoftwareApplication schema)
+    const appJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: app.title,
+        description: app.summary,
+        applicationCategory: app.category || "SoftwareApplication",
+        operatingSystem: app.platforms || "Cross-platform",
+        offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+        },
+        author: {
+            "@type": "Person",
+            name: "Noam",
+            url: siteConfig.url,
+        },
+        image: `${siteConfig.url}${app.thumbnailImage}`,
+        url: `${siteConfig.url}/apps/${app.id}`,
+    };
+
     return (
         <div className="min-h-screen bg-background">
+            {/* JSON-LD for this app */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
+            />
             {/* Hero Section */}
             <section className="pt-32 pb-24 px-6 md:px-12 bg-dark-grey">
                 <div className="max-w-[100rem] mx-auto">

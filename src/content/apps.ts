@@ -16,6 +16,9 @@ export type App = {
     waitlistEnabled: boolean; // Show waitlist form?
     featured: boolean; // Show on homepage?
     order: number; // Display order (lower = first)
+    // SEO/Schema fields (optional)
+    category?: string; // Schema.org category, e.g., "ProductivityApplication", "UtilitiesApplication", "GameApplication"
+    platforms?: string; // e.g., "iOS, Android", "Web", "Windows, macOS, Linux"
 };
 
 export const apps: App[] = [
@@ -44,6 +47,8 @@ export const apps: App[] = [
         waitlistEnabled: true,
         featured: true,
         order: 1,
+        category: "ProductivityApplication",
+        platforms: "iOS, Android",
     },
     // More apps will go here
 ];
