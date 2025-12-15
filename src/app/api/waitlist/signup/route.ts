@@ -3,7 +3,14 @@ import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { Resend } from "resend";
 import crypto from "crypto";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy-initialize Resend (only when route is called, not at build time)
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not set");
+  }
+  return new Resend(apiKey);
+}
 
 // Simple email validation
 function isValidEmail(email: string): boolean {
@@ -138,6 +145,7 @@ async function sendConfirmationEmail(email: string, appId: string, token: string
   };
   const appName = appNames[appId] || appId;
 
+  const resend = getResendClient();
   await resend.emails.send({
     from: "NoamBuilds <waitlist@noambuilds.com>",
     to: email,
