@@ -11,12 +11,12 @@ import { siteConfig } from "@/content/site";
  * - Point them to the sitemap for efficient discovery
  */
 export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: `${siteConfig.url}/sitemap.xml`,
-  };
+    return {
+        rules: {
+            userAgent: "*",
+            allow: "/",
+        },
+        sitemap: `${siteConfig.url}/sitemap.xml`,
+    };
 }
 
