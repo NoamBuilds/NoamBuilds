@@ -6,7 +6,7 @@
   /* Dark background */
   --foreground: #ededed;
   /* Light text */
-  --primary: #00FF96;
+  --primary: #04D9FF;
   /* Neon green accent - swap this to change brand color */
   --dark-grey: #1a1a1a;
   /* Slightly lighter dark for sections */
@@ -32,7 +32,7 @@ body {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-reveal.is-visible {
@@ -50,4 +50,57 @@ body {
 .text-stroke:hover {
   -webkit-text-stroke: 1px var(--primary);
   color: rgba(0, 255, 150, 0.1);
+}
+
+/* ============================================
+   SEAMLESS MARQUEE
+   ============================================
+   How it works:
+   1. .marquee-content contains TWO identical sets of items
+   2. Animation moves -50% (exactly one set's width)
+   3. When set 1 exits left, set 2 is at start position
+   4. Loop resets = no visible jump
+*/
+
+.marquee-container {
+  width: 100%;
+}
+
+.marquee-content {
+  display: flex;
+  width: max-content;
+  /* KEY: content determines width, not viewport */
+  animation: marquee-scroll 20s linear infinite;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 2rem;
+  flex-shrink: 0;
+  /* Prevent items from shrinking */
+  white-space: nowrap;
+  /* Prevent text wrap */
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* GPU acceleration for smoother animation */
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-content {
+    will-change: transform;
+  }
 }

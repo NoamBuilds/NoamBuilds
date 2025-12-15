@@ -6,7 +6,7 @@ export default function NeonGridBackground() {
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             {/* Grid pattern with radial fade */}
             <div
-                className="absolute inset-0 opacity-20"
+                className="absolute inset-0 opacity-40"
                 style={{
                     backgroundImage: `
             linear-gradient(to right, #212121 1px, transparent 1px),
@@ -18,7 +18,7 @@ export default function NeonGridBackground() {
                 }}
             />
             {/* Gradient glow at top */}
-            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary/5 to-transparent blur-[100px]" />
+            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-primary/8 to-transparent blur-[100px]" />
         </div>
     );
 }

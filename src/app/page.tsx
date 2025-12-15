@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import NeonGridBackground from "@/components/NeonGridBackground";
 import AnimatedElement from "@/components/AnimatedElement";
+import SkillsMarquee from "@/components/SkillsMarquee";
 
 export default function Home() {
   // Parallax effect: track scroll position
@@ -50,7 +51,7 @@ export default function Home() {
 
             <AnimatedElement delay={200}>
               <p className="text-xl md:text-2xl text-foreground/60 max-w-2xl leading-relaxed mb-12 border-l-2 border-primary/30 pl-6">
-                I engineer digital reality. Building robust full-stack applications,
+                Building full-stack applications,
                 intelligent automation pipelines, and AI-driven workflows that solve real problems.
               </p>
             </AnimatedElement>
@@ -78,13 +79,13 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            <div className="absolute inset-0 border border-white/10 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-30 mix-blend-overlay"></div>
+            <div className="absolute inset-0 overflow-hidden">
+              {/* <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-30 mix-blend-overlay"></div> */}
               <Image
                 src="/brand/SocialProfileImage.jpg"
                 alt="NoamBuilds brand illustration"
                 fill
-                className="object-cover opacity-90 hover:opacity-100 transition-opacity duration-700"
+                className="object-contain opacity-70 hover:opacity-100 transition-opacity duration-700"
                 priority
               />
 
@@ -93,6 +94,9 @@ export default function Home() {
         </div>
 
       </section>
+
+      {/* Skills Marquee */}
+      <SkillsMarquee />
 
       {/* Placeholder for next sections */}
       <section className="min-h-screen flex items-center justify-center">
