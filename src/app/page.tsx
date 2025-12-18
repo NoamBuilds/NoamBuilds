@@ -55,18 +55,18 @@ export default function Home() {
             </AnimatedElement>
 
             <AnimatedElement delay={200}>
-              <p className="text-xl md:text-2xl text-foreground/60 max-w-2xl leading-relaxed mb-12 border-l-2 border-primary/30 pl-6">
-                Building full-stack applications,
-                intelligent automation pipelines, and AI-driven workflows that solve real problems.
+              <p className="text-xl md:text-2xl text-foreground/80 max-w-2xl leading-relaxed mb-12 border-l-2 border-primary/30 pl-6">
+                Building fullstack applications,
+                intelligent automation pipelines, and AI-driven workflows and agents that solve real problems.
               </p>
             </AnimatedElement>
 
             <AnimatedElement delay={300}>
               <div className="flex flex-wrap gap-6">
                 <Link href="/projects">
-                  <button className="bg-primary text-black hover:bg-primary/90 h-14 px-8 text-lg font-bold border border-primary transition-all hover:translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)]">
+                  {/* <button className="bg-primary text-black hover:bg-primary/90 h-14 px-8 text-lg font-bold border border-primary transition-all hover:translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)]">
                     Explore Work <ArrowRight className="inline ml-2 w-5 h-5" />
-                  </button>
+                  </button> */}
                 </Link>
                 <Link href="/contact">
                   <button className="h-14 px-8 text-lg font-bold border border-white/20 hover:bg-white/5 hover:text-primary hover:border-primary transition-colors">

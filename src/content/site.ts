@@ -43,11 +43,11 @@ export const siteConfig = {
     // Philosophy section
     philosophy: {
         label: "HOW I WORK",
-        description: "I like moving quickly and shipping real features. I use tools like Cursor to iterate fast, but I keep the codebase organized and easy to change, so adding the next feature doesn’t turn into a rewrite.",
+        description: "I like moving quickly and shipping real features. I use tools like Cursor to iterate fast, but I keep the codebase organized and easy to maintain.",
         headline: "I build fullstack products fast without sacrificing clean, maintainable code.",
         cards: [
             {
-                title: "Full-Stack Shipping",
+                title: "Fullstack Shipping",
                 description: "Taking a feature from idea → working product: frontend, backend, database, and deployment. I move fast with cursor and other AI tools, but I keep things structured so the app stays easy to extend.",
                 icon: "rocket",
             },
@@ -63,7 +63,7 @@ export const siteConfig = {
             },
             {
                 title: "AI Workflows + Automation",
-                description: "Adding AI where it creates real value: LLM features, agent-like flows, and smart automation. Also building ETL-style pipelines to move/transform data between systems when needed.",
+                description: "Adding AI where it creates real value: LLM features, agent flows, and smart automation. Also building ETL pipelines to move/transform data between systems when needed.",
                 icon: "workflow",
             },
         ],

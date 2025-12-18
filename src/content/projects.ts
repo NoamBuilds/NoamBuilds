@@ -75,7 +75,7 @@ export const projects: Project[] = [
 - JSON used across levels, assets, and animation configurations
 - Organized structure across core systems: editor, gameplay, rendering, UI`,
         techStack: ["Python", "Pygame", "JSON", "Object Oriented", "Dynamic Architecture"],
-        thumbnailImage: "/projects/platformer/thumbnail.gif",
+        thumbnailImage: "/projects/platformer/thumbnail.mp4",
         images: [
             "/projects/platformer/Game1.gif",
             "/projects/platformer/Editor1.gif",

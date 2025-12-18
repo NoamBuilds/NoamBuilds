@@ -45,9 +45,9 @@ export default function AboutPage() {
                             <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 items-start">
                                 {/* Profile Image */}
                                 <div className="lg:col-span-1">
-                                    <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto lg:mx-0 border border-white/10 overflow-hidden">
+                                    <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto lg:mx-0 border rounded-full border-white/10 overflow-hidden">
                                         <Image
-                                            src="/brand/SocialProfileImage.jpg"
+                                            src="/brand/ProfilePhotoWide.png"
                                             alt={siteConfig.name}
                                             fill
                                             className="object-cover"
@@ -66,7 +66,7 @@ export default function AboutPage() {
                                     <div className="max-w-4xl">
                                         <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed mb-6">
                                             I&apos;m a 5th-year B.Sc. Data & Information Engineering student,
-                                            with a strong focus on fullstack development and system architecture.
+                                            with a strong focus on fullstack development.
                                         </p>
                                         <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed mb-6">
                                             I specialize in building end-to-end systems that solve real problems, from

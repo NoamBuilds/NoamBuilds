@@ -24,7 +24,7 @@ export default function PhilosophySection() {
                                 {philosophy.label}
                             </h2>
                             <div className="h-[1px] w-full bg-white/10 mb-8"></div>
-                            <p className="text-foreground/50 text-xl leading-relaxed">
+                            <p className="text-foreground/80 text-xl leading-relaxed">
                                 {philosophy.description}
                             </p>
                         </AnimatedElement>
