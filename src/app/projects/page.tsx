@@ -86,14 +86,25 @@ export default function ProjectsPage() {
                         {filteredProjects.map((project, index) => (
                             <AnimatedElement key={project.id} delay={100 * (index % 4)}>
                                 <div className="group border border-white/10 hover:border-primary/50 transition-all duration-300 overflow-hidden h-full flex flex-col">
-                                    {/* Image */}
+                                    {/* Image/Video */}
                                     <div className="relative aspect-video overflow-hidden bg-dark-grey">
-                                        <Image
-                                            src={project.thumbnailImage}
-                                            alt={project.title}
-                                            fill
-                                            className="object-cover group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-500"
-                                        />
+                                        {project.thumbnailImage.endsWith('.mp4') || project.thumbnailImage.endsWith('.webm') ? (
+                                            <video
+                                                src={project.thumbnailImage}
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                                className="absolute inset-0 w-full h-full object-cover group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-500"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={project.thumbnailImage}
+                                                alt={project.title}
+                                                fill
+                                                className="object-cover group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-500"
+                                            />
+                                        )}
                                         <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay" />
                                     </div>
 

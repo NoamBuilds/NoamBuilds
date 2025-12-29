@@ -110,17 +110,28 @@ export default async function ProjectDetailPage({ params }: Props) {
                         </div>
                     </AnimatedElement>
 
-                    {/* Hero Image */}
+                    {/* Hero Image/Video */}
                     <AnimatedElement delay={200}>
                         <div className="mb-24 border border-white/10 overflow-hidden">
-                            <Image
-                                src={project.thumbnailImage}
-                                alt={project.title}
-                                width={1920}
-                                height={1080}
-                                className="w-full h-auto object-cover"
-                                unoptimized={project.thumbnailImage.endsWith(".gif")}
-                            />
+                            {project.thumbnailImage.endsWith('.mp4') || project.thumbnailImage.endsWith('.webm') ? (
+                                <video
+                                    src={project.thumbnailImage}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-auto object-cover"
+                                />
+                            ) : (
+                                <Image
+                                    src={project.thumbnailImage}
+                                    alt={project.title}
+                                    width={1920}
+                                    height={1080}
+                                    className="w-full h-auto object-cover"
+                                    unoptimized={project.thumbnailImage.endsWith(".gif")}
+                                />
+                            )}
                         </div>
                     </AnimatedElement>
 

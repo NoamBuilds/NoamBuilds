@@ -171,16 +171,27 @@ export default function ShowcaseSection({
                                     </div>
                                 </div>
 
-                                {/* Right: Item image */}
+                                {/* Right: Item image/video */}
                                 <div className="lg:col-span-7 order-1 lg:order-2">
                                     <div className="relative aspect-[16/9] overflow-hidden border border-white/10 group-hover:border-primary/30 transition-colors">
                                         <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity z-10 mix-blend-overlay"></div>
-                                        <Image
-                                            src={item.thumbnailImage}
-                                            alt={item.title}
-                                            fill
-                                            className="object-cover grayscale-[25%] group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
-                                        />
+                                        {item.thumbnailImage.endsWith('.mp4') || item.thumbnailImage.endsWith('.webm') ? (
+                                            <video
+                                                src={item.thumbnailImage}
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                                className="absolute inset-0 w-full h-full object-cover grayscale-[25%] group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={item.thumbnailImage}
+                                                alt={item.title}
+                                                fill
+                                                className="object-cover grayscale-[25%] group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             </div>

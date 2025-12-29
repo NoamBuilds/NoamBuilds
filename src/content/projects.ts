@@ -15,6 +15,79 @@ export type Project = {
 
 export const projects: Project[] = [
     {
+        id: "nudgeme",
+        title: "NudgeMe",
+        summary: "AI-powered productivity app with conversational project planning, smart reminders, and visual roadmaps.",
+        description: `NudgeMe is a mobile productivity companion that uses AI to help users break down complex goals into actionable tasks.
+
+**Core Features:**
+- AI agent that creates structured project plans through natural conversation
+- Smart reminders that adapt based on user progress and behavior
+- Visual project roadmaps with phase/task breakdown
+- Progress tracking with streaks and daily goals
+- Cross-platform mobile experience (iOS & Android)
+
+**Technical Architecture:**
+- Expo Router for file-based navigation and deep linking
+- React Native with TypeScript for type-safe mobile development
+- Supabase for auth, database, and real-time subscriptions
+- LangChain for AI agent orchestration and structured outputs
+- Custom state management for offline-first experience
+
+**Engineering Highlights:**
+- Designed conversational UI patterns for AI interactions
+- Implemented adaptive reminder scheduling based on user patterns
+- Built reusable component library for consistent mobile UX
+- Row-level security policies for multi-tenant data isolation`,
+        techStack: ["Expo", "React Native", "TypeScript", "Supabase", "LangChain", "Postgres"],
+        thumbnailImage: "/apps/nudgeme/thumbnail.png",
+        images: [
+            "/apps/nudgeme/home.jpg",
+            "/apps/nudgeme/chat.jpg",
+            "/apps/nudgeme/plan.jpg",
+            "/apps/nudgeme/roadmap.jpg",
+        ],
+        demoLink: "/apps/nudgeme",
+        githubLink: "private",
+        featured: true,
+        order: 1,
+    },
+    {
+        id: "panic-poll",
+        title: "PanicPoll",
+        summary: "Real-time polling app for crowdsourcing fast decisions from trusted contacts with push notifications and rich media support.",
+        description: `PanicPoll solves the "who should I ask?" problem when you're on a deadline. Users sync contacts, build private circles, and launch rich decision requests with images, urgency flags, and multiple vote types.
+
+**Core Features:**
+- Real contact syncing with private circles and member management
+- Decision composer with images, urgency levels, and multiple vote formats (Yes/No, A/B, multi-choice)
+- Push notifications to alert recipients and track responses in real-time
+- Inbox + History tabs for active polls and archived decisions
+- Demo mode for seeding sample data and marketing screenshots
+
+**Technical Architecture:**
+- Expo Router for navigation with deep linking support
+- React Native with TypeScript for cross-platform mobile
+- Supabase for auth, Postgres database, and file storage
+- Supabase Edge Functions for serverless push notification delivery
+- Firebase Cloud Messaging (FCM) for cross-platform push
+- Expo Notifications for local and remote notification handling
+
+**Engineering Highlights:**
+- Designed contact sync flow with privacy-first approach
+- Built real-time voting updates with Supabase subscriptions
+- Implemented push notification pipeline: Edge Function → FCM → device
+- Row-level security for circle membership and poll visibility
+- Attachment handling with Supabase Storage and signed URLs`,
+        techStack: ["Expo Router", "React Native", "TypeScript", "Supabase", "Postgres", "Edge Functions", "FCM", "Expo Notifications"],
+        thumbnailImage: "/apps/panicpoll/thumbnail.mp4",
+        images: [],
+        demoLink: "/apps/panic-poll",
+        githubLink: "private",
+        featured: true,
+        order: 2,
+    },
+    {
         id: "rekem",
         title: "Rekem",
         summary: "Fullstack transport event manager web app, built during IBM internship.",
@@ -38,7 +111,7 @@ export const projects: Project[] = [
         demoLink: undefined, // Add if you have a live demo
         githubLink: "private",
         featured: true,
-        order: 2,
+        order: 3,
     },
     {
         id: "platformer",
@@ -84,7 +157,7 @@ export const projects: Project[] = [
         demoLink: undefined,
         githubLink: "https://github.com/moanzx/Platformer",
         featured: true,
-        order: 3,
+        order: 4,
     },
     // Add more projects here later
 ];

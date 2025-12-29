@@ -9,13 +9,13 @@ export default function FeaturedApps() {
         id: app.id,
         title: app.title,
         summary: app.summary,
-        techStack: app.techStack,
+        techStack: [], // Apps don't show tech stack on homepage
         thumbnailImage: app.thumbnailImage,
         primaryAction: {
             label: "Learn more",
-            href: app.ctaLink || `/apps/${app.id}`,
+            href: `/apps/${app.id}`,
         },
-        githubLink: undefined, // Apps don't show GitHub by default
+        githubLink: undefined,
         demoLink: app.appStoreLink || app.playStoreLink,
         badge: app.status === "beta" ? "Beta" : app.status === "coming-soon" ? "Coming soon" : undefined,
     }));
@@ -28,9 +28,8 @@ export default function FeaturedApps() {
             viewAllHref="/apps"
             items={items}
             limit={3}
-            minSlots={2} // Show at least 2 slots (fills with "Coming soon" if needed)
+            minSlots={2}
             comingSoonText="Next app shipping soon"
         />
     );
 }
-

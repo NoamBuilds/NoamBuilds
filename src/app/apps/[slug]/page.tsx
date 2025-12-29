@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Apple, Play } from "lucide-react";
+import { Apple, Play, ArrowRight, CheckCircle2 } from "lucide-react";
 import { apps, getAppById } from "@/content/apps";
 import { siteConfig } from "@/content/site";
 import AnimatedElement from "@/components/AnimatedElement";
@@ -11,27 +10,20 @@ import type { Metadata } from "next";
 
 // --- STATIC GENERATION ---
 export async function generateStaticParams() {
-    return apps.map((app) => ({
-        slug: app.id,
-    }));
+    return apps.map((app) => ({ slug: app.id }));
 }
 
 // --- DYNAMIC METADATA ---
-type Props = {
-    params: Promise<{ slug: string }>;
-};
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const app = getAppById(slug);
-
-    if (!app) {
-        return { title: "App Not Found" };
-    }
+    if (!app) return { title: "App Not Found" };
 
     return {
-        title: app.title,
-        description: app.tagline,
+        title: `${app.title} — ${app.tagline}`,
+        description: app.summary,
         openGraph: {
             title: `${app.title} — ${app.tagline}`,
             description: app.summary,
@@ -41,162 +33,183 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // --- PAGE COMPONENT ---
-export default async function AppDetailPage({ params }: Props) {
+export default async function AppLandingPage({ params }: Props) {
     const { slug } = await params;
     const app = getAppById(slug);
 
-    if (!app) {
-        notFound();
-    }
+    if (!app) notFound();
 
-    // JSON-LD for this specific app (SoftwareApplication schema)
-    const appJsonLd = {
+    // JSON-LD Schema
+    const jsonLd = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: app.title,
         description: app.summary,
         applicationCategory: app.category || "SoftwareApplication",
         operatingSystem: app.platforms || "Cross-platform",
-        offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-        },
-        author: {
-            "@type": "Person",
-            name: "Noam",
-            url: siteConfig.url,
-        },
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        author: { "@type": "Person", name: "Noam", url: siteConfig.url },
         image: `${siteConfig.url}${app.thumbnailImage}`,
         url: `${siteConfig.url}/apps/${app.id}`,
     };
 
     return (
         <div className="min-h-screen bg-background">
-            {/* JSON-LD for this app */}
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            {/* Hero Section */}
-            <section className="pt-32 pb-24 px-6 md:px-12 bg-dark-grey">
-                <div className="max-w-[100rem] mx-auto">
-                    {/* Back Button */}
-                    <AnimatedElement>
-                        <Link
-                            href="/apps"
-                            className="inline-flex items-center text-foreground/70 hover:text-primary transition-colors mb-12"
-                        >
-                            <ArrowLeft className="mr-2 w-4 h-4" />
-                            All Apps
-                        </Link>
-                    </AnimatedElement>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        {/* Left: App Info */}
-                        <div>
-                            <AnimatedElement>
-                                {/* Status Badge */}
-                                <span
-                                    className={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider mb-6 ${app.status === "live"
-                                        ? "bg-green-500 text-black"
-                                        : app.status === "beta"
-                                            ? "bg-primary text-black"
-                                            : "bg-white/20 text-white"
-                                        }`}
-                                >
-                                    {app.status === "coming-soon" ? "Coming Soon" : app.status}
-                                </span>
+            {/* ============================================
+                HERO SECTION
+                ============================================ */}
+            <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 px-6 md:px-12 overflow-hidden">
+                {/* Background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
 
-                                <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-4">
-                                    {app.title}
-                                </h1>
+                <div className="max-w-6xl mx-auto relative z-10">
+                    <div className="text-center max-w-4xl mx-auto">
+                        {/* Status badge */}
+                        <AnimatedElement>
+                            <span className={`inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full mb-8 ${app.status === "live" ? "bg-green-500/20 text-green-400 border border-green-500/30" :
+                                app.status === "beta" ? "bg-primary/20 text-primary border border-primary/30" :
+                                    "bg-white/10 text-white/70 border border-white/20"
+                                }`}>
+                                {app.status === "coming-soon" ? "Coming Soon" : app.status === "beta" ? "Beta" : "Available Now"}
+                            </span>
+                        </AnimatedElement>
 
-                                <p className="text-2xl md:text-3xl text-primary mb-6">
-                                    {app.tagline}
-                                </p>
+                        {/* Headline */}
+                        <AnimatedElement delay={100}>
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+                                {app.tagline}
+                            </h1>
+                        </AnimatedElement>
 
-                                <p className="text-xl text-foreground/70 mb-8 max-w-xl">
-                                    {app.summary}
-                                </p>
-
-                                {/* CTA Buttons */}
-                                <div className="flex flex-wrap gap-4">
-                                    {app.waitlistEnabled && (
-                                        <a
-                                            href="#waitlist"
-                                            className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold text-lg hover:bg-primary/90 transition-all"
-                                        >
-                                            {app.ctaLabel || "Join Waitlist"}
-                                        </a>
-                                    )}
-                                    {app.appStoreLink && (
-                                        <a
-                                            href={app.appStoreLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center px-6 py-4 border border-white/20 hover:border-primary hover:text-primary transition-all"
-                                        >
-                                            <Apple className="mr-2 w-5 h-5" />
-                                            App Store
-                                        </a>
-                                    )}
-                                    {app.playStoreLink && (
-                                        <a
-                                            href={app.playStoreLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center px-6 py-4 border border-white/20 hover:border-primary hover:text-primary transition-all"
-                                        >
-                                            <Play className="mr-2 w-5 h-5" />
-                                            Play Store
-                                        </a>
-                                    )}
-                                </div>
-                            </AnimatedElement>
-                        </div>
-
-                        {/* Right: Hero Image */}
+                        {/* Subheadline */}
                         <AnimatedElement delay={200}>
-                            <div className="relative aspect-video overflow-hidden border border-white/10">
-                                <Image
-                                    src={app.thumbnailImage}
-                                    alt={app.title}
-                                    fill
-                                    className="object-cover"
-                                    priority
-                                />
+                            <p className="text-xl md:text-2xl text-foreground/70 mb-10 max-w-2xl mx-auto leading-relaxed">
+                                {app.summary}
+                            </p>
+                        </AnimatedElement>
+
+                        {/* CTA Buttons */}
+                        <AnimatedElement delay={300}>
+                            <div className="flex flex-wrap justify-center gap-4 mb-16">
+                                {app.waitlistEnabled && (
+                                    <a
+                                        href="#waitlist"
+                                        className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold text-lg rounded-lg hover:bg-primary/90 transition-all hover:scale-105"
+                                    >
+                                        {app.ctaLabel || "Get Early Access"}
+                                        <ArrowRight className="ml-2 w-5 h-5" />
+                                    </a>
+                                )}
+                                {app.appStoreLink && (
+                                    <a
+                                        href={app.appStoreLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
+                                    >
+                                        <Apple className="mr-2 w-5 h-5" />
+                                        App Store
+                                    </a>
+                                )}
+                                {app.playStoreLink && (
+                                    <a
+                                        href={app.playStoreLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
+                                    >
+                                        <Play className="mr-2 w-5 h-5" />
+                                        Google Play
+                                    </a>
+                                )}
+                            </div>
+                        </AnimatedElement>
+
+                        {/* Hero Image/Video */}
+                        <AnimatedElement delay={400}>
+                            <div className="relative aspect-video max-w-4xl mx-auto rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-primary/10">
+                                {app.thumbnailImage.endsWith('.mp4') || app.thumbnailImage.endsWith('.webm') ? (
+                                    <video
+                                        src={app.thumbnailImage}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={app.thumbnailImage}
+                                        alt={app.title}
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                )}
                             </div>
                         </AnimatedElement>
                     </div>
                 </div>
             </section>
 
-            {/* Features Section */}
-            {app.features && app.features.length > 0 && (
-                <section className="py-24 px-6 md:px-12 bg-background">
-                    <div className="max-w-[100rem] mx-auto">
+            {/* ============================================
+                PROBLEM / SOLUTION SECTION
+                ============================================ */}
+            {app.problem && app.solution && (
+                <section className="py-24 px-6 md:px-12 bg-dark-grey">
+                    <div className="max-w-5xl mx-auto">
+                        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+                            <AnimatedElement>
+                                <div className="p-8 rounded-xl bg-red-500/5 border border-red-500/20">
+                                    <span className="text-red-400 text-sm font-bold uppercase tracking-wider mb-4 block">
+                                        The Problem
+                                    </span>
+                                    <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed">
+                                        {app.problem}
+                                    </p>
+                                </div>
+                            </AnimatedElement>
+                            <AnimatedElement delay={200}>
+                                <div className="p-8 rounded-xl bg-primary/5 border border-primary/20">
+                                    <span className="text-primary text-sm font-bold uppercase tracking-wider mb-4 block">
+                                        The Solution
+                                    </span>
+                                    <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed">
+                                        {app.solution}
+                                    </p>
+                                </div>
+                            </AnimatedElement>
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {/* ============================================
+                HOW IT WORKS SECTION
+                ============================================ */}
+            {app.howItWorks && app.howItWorks.length > 0 && (
+                <section className="py-24 px-6 md:px-12">
+                    <div className="max-w-5xl mx-auto">
                         <AnimatedElement>
-                            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-                                Key Features
+                            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+                                How it works
                             </h2>
-                            <p className="text-center text-foreground/50 mb-16 max-w-2xl mx-auto">
-                                Everything you need to get started
-                            </p>
                         </AnimatedElement>
 
-                        {/* Equal-height cards grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                            {app.features.map((feature, index) => (
-                                <AnimatedElement key={index} delay={80 * index} className="h-full">
-                                    <div className="h-full p-8 border border-white/10 bg-dark-grey hover:border-primary/50 transition-colors flex flex-col">
-                                        {/* Simple number accent */}
-                                        <span className="text-primary text-sm font-mono mb-4">
-                                            0{index + 1}
-                                        </span>
-                                        <p className="text-lg text-foreground/90 leading-relaxed">
-                                            {feature}
-                                        </p>
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {app.howItWorks.map((item, index) => (
+                                <AnimatedElement key={index} delay={100 * index}>
+                                    <div className="text-center">
+                                        <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center mx-auto mb-6">
+                                            <span className="text-2xl font-bold text-primary">{index + 1}</span>
+                                        </div>
+                                        <h3 className="text-xl font-bold mb-3">{item.step}</h3>
+                                        <p className="text-foreground/60 leading-relaxed">{item.description}</p>
                                     </div>
                                 </AnimatedElement>
                             ))}
@@ -205,62 +218,70 @@ export default async function AppDetailPage({ params }: Props) {
                 </section>
             )}
 
-            {/* Screenshots Section */}
-            {app.images && app.images.length > 0 && (
+            {/* ============================================
+                FEATURES SECTION
+                ============================================ */}
+            {app.features && app.features.length > 0 && (
                 <section className="py-24 px-6 md:px-12 bg-dark-grey">
-                    <div className="max-w-[100rem] mx-auto">
+                    <div className="max-w-5xl mx-auto">
                         <AnimatedElement>
                             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-                                Screenshots
+                                Everything you need
+                            </h2>
+                        </AnimatedElement>
+
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {app.features.map((feature, index) => (
+                                <AnimatedElement key={index} delay={80 * index}>
+                                    <div className="flex gap-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors">
+                                        <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                                        <div>
+                                            <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
+                                            <p className="text-foreground/60 leading-relaxed">{feature.description}</p>
+                                        </div>
+                                    </div>
+                                </AnimatedElement>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {/* ============================================
+                SCREENSHOTS SECTION
+                ============================================ */}
+            {app.images && app.images.length > 0 && (
+                <section className="py-24 px-6 md:px-12">
+                    <div className="max-w-6xl mx-auto">
+                        <AnimatedElement>
+                            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+                                See it in action
                             </h2>
                         </AnimatedElement>
 
                         <AnimatedElement delay={200}>
-                            <ProjectGallery
-                                images={app.images}
-                                projectTitle={app.title}
-                            />
+                            <ProjectGallery images={app.images} projectTitle={app.title} />
                         </AnimatedElement>
                     </div>
                 </section>
             )}
 
-            {/* Tech Stack */}
-            {app.techStack && app.techStack.length > 0 && (
-                <section className="py-24 px-6 md:px-12 bg-background">
-                    <div className="max-w-[100rem] mx-auto text-center">
-                        <AnimatedElement>
-                            <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                                Built With
-                            </h2>
-                        </AnimatedElement>
-
-                        <AnimatedElement delay={100}>
-                            <div className="flex flex-wrap justify-center gap-4">
-                                {app.techStack.map((tech) => (
-                                    <span
-                                        key={tech}
-                                        className="px-6 py-3 bg-white/5 border border-white/10 text-lg text-foreground/80"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </AnimatedElement>
-                    </div>
-                </section>
-            )}
-
-            {/* Waitlist Section */}
+            {/* ============================================
+                FINAL CTA / WAITLIST SECTION
+                ============================================ */}
             {app.waitlistEnabled && (
-                <section id="waitlist" className="py-24 px-6 md:px-12 bg-dark-grey">
+                <section id="waitlist" className="py-24 px-6 md:px-12 bg-gradient-to-b from-dark-grey to-background">
                     <div className="max-w-2xl mx-auto text-center">
                         <AnimatedElement>
                             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                                Get Early Access
+                                Ready to try {app.title}?
                             </h2>
                             <p className="text-xl text-foreground/70 mb-12">
-                                Be the first to know when {app.title} launches.
+                                {app.status === "beta"
+                                    ? "Join the beta and be among the first to experience it."
+                                    : app.status === "coming-soon"
+                                        ? "Sign up to get notified when we launch."
+                                        : "Get started today — it's free."}
                             </p>
 
                             <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
@@ -271,4 +292,3 @@ export default async function AppDetailPage({ params }: Props) {
         </div>
     );
 }
-
