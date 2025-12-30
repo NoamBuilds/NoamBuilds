@@ -40,7 +40,7 @@ export default function Home() {
 
             <AnimatedElement delay={200}>
               <p className="text-lg md:text-xl text-foreground/90 max-w-xl leading-relaxed mb-10">
-                Shipping fullstack apps, AI workflows, and products that solve real problems — from idea to live users.
+                Shipping fullstack apps, AI workflows, and products that solve real problems, from idea to live users.
               </p>
             </AnimatedElement>
 
