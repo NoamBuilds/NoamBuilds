@@ -3,7 +3,7 @@
 
 export const siteConfig = {
     name: "NoamBuilds",
-    title: "NoamBuilds — Full-Stack Developer & System Architect",
+    title: "NoamBuilds - Full-Stack Developer",
     description: "Building robust full-stack applications with React, Expo, Supabase, and AI-driven workflows.",
     url: "https://noambuilds.com",
 
