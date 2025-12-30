@@ -1,3 +1,5 @@
+import React from 'react';
+
 type MarkdownContentProps = {
     content: string;
 };
@@ -5,7 +7,7 @@ type MarkdownContentProps = {
 export default function MarkdownContent({ content }: MarkdownContentProps) {
     // Split content into lines for processing
     const lines = content.split('\n');
-    const elements: JSX.Element[] = [];
+    const elements: React.ReactElement[] = [];
     let currentList: string[] = [];
     let currentListType: 'ul' | 'ol' | null = null;
     let key = 0;
@@ -31,8 +33,8 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
         }
     };
 
-    const parseInlineFormatting = (text: string): (string | JSX.Element)[] => {
-        const parts: (string | JSX.Element)[] = [];
+    const parseInlineFormatting = (text: string): (string | React.ReactElement)[] => {
+        const parts: (string | React.ReactElement)[] = [];
         let remaining = text;
         let inlineKey = 0;
 
