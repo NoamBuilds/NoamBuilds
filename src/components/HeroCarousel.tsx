@@ -13,6 +13,12 @@ type Slide = {
 
 const slides: Slide[] = [
     {
+        media: "/apps/panicpoll/thumbnail-demo.mp4",
+        title: "PanicPoll",
+        href: "/apps/panic-poll",
+        type: "video",
+    },
+    {
         media: "/projects/platformer/thumbnail.mp4",
         title: "2D Platformer Engine",
         href: "/projects/platformer",
@@ -111,8 +117,8 @@ export default function HeroCarousel() {
                             }, 500);
                         }}
                         className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
-                                ? "bg-primary w-6"
-                                : "bg-white/30 hover:bg-white/50"
+                            ? "bg-primary w-6"
+                            : "bg-white/30 hover:bg-white/50"
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />

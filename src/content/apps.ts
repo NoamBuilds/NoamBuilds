@@ -92,8 +92,14 @@ export const apps: App[] = [
             { title: "Decision History", description: "Every poll saved and searchable,  reference past decisions anytime" },
         ],
 
-        thumbnailImage: "/apps/panicpoll/thumbnail.mp4",
-        images: [],
+        thumbnailImage: "/apps/panicpoll/thumbnail.png",
+        images: [
+            "/apps/panicpoll/thumbnail-demo.mp4",
+            "/apps/panicpoll/circles.jpg",
+            "/apps/panicpoll/inbox.jpg",
+            "/apps/panicpoll/create.jpg",
+            "/apps/panicpoll/mypolls.jpg",
+        ],
 
         status: "beta",
         ctaLabel: "Join PanicPoll Beta",

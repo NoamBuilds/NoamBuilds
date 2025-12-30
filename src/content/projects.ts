@@ -80,8 +80,14 @@ export const projects: Project[] = [
 - Row-level security for circle membership and poll visibility
 - Attachment handling with Supabase Storage and signed URLs`,
         techStack: ["Expo Router", "React Native", "TypeScript", "Supabase", "Postgres", "Edge Functions", "FCM", "Expo Notifications"],
-        thumbnailImage: "/apps/panicpoll/thumbnail.mp4",
-        images: [],
+        thumbnailImage: "/apps/panicpoll/thumbnail.png",
+        images: [
+            "/apps/panicpoll/thumbnail-demo.mp4",
+            "/apps/panicpoll/circles.jpg",
+            "/apps/panicpoll/inbox.jpg",
+            "/apps/panicpoll/create.jpg",
+            "/apps/panicpoll/mypolls.jpg",
+        ],
         demoLink: "/apps/panic-poll",
         githubLink: "private",
         featured: true,

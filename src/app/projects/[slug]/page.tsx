@@ -5,6 +5,7 @@ import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { projects, getProjectById } from "@/content/projects";
 import AnimatedElement from "@/components/AnimatedElement";
 import ProjectGallery from "@/components/ProjectGallery";
+import MarkdownContent from "@/components/MarkdownContent";
 import type { Metadata } from "next";
 
 // --- STATIC GENERATION ---
@@ -142,9 +143,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                             <h2 className="text-3xl font-bold text-foreground mb-6">
                                 About the Project
                             </h2>
-                            <div className="text-foreground/70 text-lg leading-relaxed whitespace-pre-line">
-                                {project.description}
-                            </div>
+                            <MarkdownContent content={project.description} />
                         </AnimatedElement>
 
                         {/* Right: Tech Stack */}

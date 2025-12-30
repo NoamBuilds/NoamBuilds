@@ -5,8 +5,9 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-type ImageData = {
+type MediaData = {
     src: string;
+    type: "image" | "video";
     orientation: "landscape" | "portrait" | "unknown";
 };
 
@@ -16,8 +17,12 @@ type ProjectGalleryProps = {
 };
 
 export default function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
-    const [imageData, setImageData] = useState<ImageData[]>(
-        images.map((src) => ({ src, orientation: "unknown" }))
+    const [mediaData, setMediaData] = useState<MediaData[]>(
+        images.map((src) => ({
+            src,
+            type: (src.endsWith('.mp4') || src.endsWith('.webm')) ? "video" : "image",
+            orientation: "unknown"
+        }))
     );
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -27,7 +32,20 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
         const orientation: "landscape" | "portrait" =
             img.naturalWidth >= img.naturalHeight ? "landscape" : "portrait";
 
-        setImageData((prev) => {
+        setMediaData((prev) => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], orientation };
+            return updated;
+        });
+    };
+
+    // Called when video metadata loads
+    const handleVideoLoad = (index: number, event: React.SyntheticEvent<HTMLVideoElement>) => {
+        const video = event.currentTarget;
+        const orientation: "landscape" | "portrait" =
+            video.videoWidth >= video.videoHeight ? "landscape" : "portrait";
+
+        setMediaData((prev) => {
             const updated = [...prev];
             updated[index] = { ...updated[index], orientation };
             return updated;
@@ -72,9 +90,9 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
         <>
             {/* Gallery Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-auto">
-                {imageData.map((img, index) => {
-                    const isLandscape = img.orientation === "landscape";
-                    const isPortrait = img.orientation === "portrait";
+                {mediaData.map((media, index) => {
+                    const isLandscape = media.orientation === "landscape";
+                    const isPortrait = media.orientation === "portrait";
 
                     return (
                         <button
@@ -86,17 +104,29 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
                                 bg-dark-grey flex items-center justify-center
                                 ${isLandscape ? "col-span-2 h-48 md:h-64" : ""}
                                 ${isPortrait ? "col-span-1 h-64 md:h-80" : ""}
-                                ${img.orientation === "unknown" ? "col-span-1 h-48 md:h-64" : ""}
+                                ${media.orientation === "unknown" ? "col-span-1 h-48 md:h-64" : ""}
                             `}
                         >
-                            <Image
-                                src={img.src}
-                                alt={`${projectTitle} screenshot ${index + 1}`}
-                                fill
-                                className="object-contain p-2"
-                                unoptimized={img.src.endsWith(".gif")}
-                                onLoad={(e) => handleImageLoad(index, e)}
-                            />
+                            {media.type === "video" ? (
+                                <video
+                                    src={media.src}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    onLoadedMetadata={(e) => handleVideoLoad(index, e)}
+                                    className="absolute inset-0 w-full h-full object-contain p-2"
+                                />
+                            ) : (
+                                <Image
+                                    src={media.src}
+                                    alt={`${projectTitle} screenshot ${index + 1}`}
+                                    fill
+                                    className="object-contain p-2"
+                                    unoptimized={media.src.endsWith(".gif")}
+                                    onLoad={(e) => handleImageLoad(index, e)}
+                                />
+                            )}
                         </button>
                     );
                 })}
@@ -127,7 +157,7 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
                                     goToPrev();
                                 }}
                                 className="absolute left-4 md:left-8 text-white/70 hover:text-white transition-colors z-50"
-                                aria-label="Previous image"
+                                aria-label="Previous"
                             >
                                 <ChevronLeft className="w-10 h-10" />
                             </button>
@@ -141,28 +171,38 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
                                     goToNext();
                                 }}
                                 className="absolute right-4 md:right-8 text-white/70 hover:text-white transition-colors z-50"
-                                aria-label="Next image"
+                                aria-label="Next"
                             >
                                 <ChevronRight className="w-10 h-10" />
                             </button>
                         )}
 
-                        {/* Image container */}
+                        {/* Media container */}
                         <div
                             className="relative max-w-[90vw] max-h-[85vh] flex items-center justify-center"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <Image
-                                src={images[selectedIndex]}
-                                alt={`${projectTitle} screenshot ${selectedIndex + 1}`}
-                                width={1920}
-                                height={1080}
-                                className="max-w-full max-h-[85vh] w-auto h-auto object-contain"
-                                unoptimized={images[selectedIndex].endsWith(".gif")}
-                            />
+                            {mediaData[selectedIndex].type === "video" ? (
+                                <video
+                                    src={images[selectedIndex]}
+                                    controls
+                                    autoPlay
+                                    loop
+                                    className="max-w-full max-h-[85vh] w-auto h-auto"
+                                />
+                            ) : (
+                                <Image
+                                    src={images[selectedIndex]}
+                                    alt={`${projectTitle} screenshot ${selectedIndex + 1}`}
+                                    width={1920}
+                                    height={1080}
+                                    className="max-w-full max-h-[85vh] w-auto h-auto object-contain"
+                                    unoptimized={images[selectedIndex].endsWith(".gif")}
+                                />
+                            )}
                         </div>
 
-                        {/* Image counter */}
+                        {/* Media counter */}
                         {images.length > 1 && (
                             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-sm">
                                 {selectedIndex + 1} / {images.length}
