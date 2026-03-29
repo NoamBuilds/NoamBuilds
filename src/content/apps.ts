@@ -42,25 +42,25 @@ export const apps: App[] = [
         id: "nudgeme",
         title: "NudgeMe",
         tagline: "Your goals, actually done.",
-        summary: "Describe any goal. Kit, your AI companion, turns it into a step-by-step journey — then keeps you moving, one day at a time.",
+        summary: "Describe any goal to Kit, your AI companion. Get a step-by-step journey and daily nudges that keep you moving.",
 
         problemHeading: "Sound familiar?",
         problem: "You've tried Notion boards, habit trackers, and to-do lists. You start strong for a week, maybe two. Then the app goes quiet on your second home screen and the goal goes back on the \"someday\" pile.\n\nThe problem isn't motivation. It's that nothing helps you figure out what to do today to actually move forward.",
 
-        solutionHeading: "NudgeMe is different.",
-        solution: "You talk to Kit about your goal — in plain language, the way you'd explain it to a friend. Kit asks one or two smart questions, then builds you a real plan: phases, milestones, and daily tasks sized to your life. No templates. No blank pages. Just a conversation and a plan you'll actually follow.",
+        solutionHeading: "One conversation. A real plan.",
+        solution: "You talk to Kit about your goal in plain language, the way you'd explain it to a friend. Kit asks a smart question or two, then builds you a real plan: phases, milestones, and daily tasks sized to your life. No templates. No blank pages. Just a plan you'll actually follow.",
 
         howItWorks: [
-            { step: "Describe your goal", description: "Tell Kit what you want to accomplish — learn guitar, get in shape, launch a side project, write a book. Talk naturally. Kit gets it." },
+            { step: "Describe your goal", description: "Tell Kit what you want to accomplish: learn guitar, get in shape, launch a side project, write a book. Talk naturally. Kit gets it." },
             { step: "Get your journey", description: "In under two minutes, Kit builds a personalized roadmap with phases, tasks, and milestones. Drag, edit, and make it yours." },
             { step: "Show up daily", description: "Kit sends you the right nudge at the right time. Complete one small task a day, build your streak, and watch your journey come to life." },
         ],
 
         features: [
-            { title: "AI that actually plans", description: "Kit doesn't hand you a template. It listens to your goal, asks the right questions, and builds a plan from scratch — phases, tasks, and milestones tailored to you." },
+            { title: "AI that actually plans", description: "Kit doesn't hand you a template. It listens to your goal, asks the right questions, and builds a plan from scratch: phases, tasks, and milestones tailored to you." },
             { title: "Nudges, not nagging", description: "Smart reminders that know what you're working on and when you're most likely to act. Context-aware, well-timed, and easy to ignore on a bad day." },
             { title: "Your journey, visualized", description: "A roadmap that fills in as you make progress. Phases, milestones, and a streak counter that makes showing up feel rewarding." },
-            { title: "Built for real life", description: "Skip a day? Kit adjusts. Change direction? Kit replans. Your journey adapts to how your life actually works — not the other way around." },
+            { title: "Built for real life", description: "Skip a day? Kit adjusts. Change direction? Kit replans. Your journey adapts to how your life actually works, not the other way around." },
         ],
 
         ctaHeading: "Ready to actually finish something?",

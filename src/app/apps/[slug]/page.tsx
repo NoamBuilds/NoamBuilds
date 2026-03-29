@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!app) return { title: "App Not Found" };
 
     const metaTitle = app.id === "nudgeme"
-        ? "NudgeMe — Your Goals, Actually Done"
-        : `${app.title} — ${app.tagline}`;
+        ? "NudgeMe - Your Goals, Actually Done"
+        : `${app.title} - ${app.tagline}`;
     const metaDescription = app.id === "nudgeme"
         ? "Describe any goal to Kit, your AI companion. Get a personalized plan in minutes. Stay on track with smart nudges and daily streaks. Join the waitlist."
         : app.summary;
@@ -100,7 +100,7 @@ export default async function AppLandingPage({ params }: Props) {
                             </p>
                         </AnimatedElement>
 
-                        {/* CTA — inline waitlist form or store buttons */}
+                        {/* CTA - inline waitlist form or store buttons */}
                         <AnimatedElement delay={300}>
                             {app.waitlistEnabled ? (
                                 <div className="max-w-md mx-auto mb-16">
@@ -238,7 +238,7 @@ export default async function AppLandingPage({ params }: Props) {
                     <div className="max-w-5xl mx-auto">
                         <AnimatedElement>
                             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-                                Everything you need
+                                What's inside
                             </h2>
                         </AnimatedElement>
 
@@ -279,6 +279,21 @@ export default async function AppLandingPage({ params }: Props) {
             )}
 
             {/* ============================================
+                SOCIAL PROOF SECTION
+                ============================================ */}
+            {app.waitlistEnabled && (
+                <section className="py-16 px-6 md:px-12 bg-dark-grey">
+                    <div className="max-w-3xl mx-auto text-center">
+                        <AnimatedElement>
+                            <p className="text-lg text-foreground/60">
+                                Currently in private beta. Join the waitlist and be one of the first to try it.
+                            </p>
+                        </AnimatedElement>
+                    </div>
+                </section>
+            )}
+
+            {/* ============================================
                 FINAL CTA / WAITLIST SECTION
                 ============================================ */}
             {app.waitlistEnabled && (
@@ -293,7 +308,7 @@ export default async function AppLandingPage({ params }: Props) {
                                     ? "Join the beta and be among the first to experience it."
                                     : app.status === "coming-soon"
                                         ? "Sign up to get notified when we launch."
-                                        : "Get started today — it's free.")}
+                                        : "Get started today. It's free.")}
                             </p>
 
                             <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
