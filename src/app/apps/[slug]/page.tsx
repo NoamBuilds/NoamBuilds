@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { Apple, Play, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Apple, Play, CheckCircle2 } from "lucide-react";
 import { apps, getAppById } from "@/content/apps";
 import { siteConfig } from "@/content/site";
 import AnimatedElement from "@/components/AnimatedElement";
@@ -21,12 +21,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const app = getAppById(slug);
     if (!app) return { title: "App Not Found" };
 
+    const metaTitle = app.id === "nudgeme"
+        ? "NudgeMe — Your Goals, Actually Done"
+        : `${app.title} — ${app.tagline}`;
+    const metaDescription = app.id === "nudgeme"
+        ? "Describe any goal to Kit, your AI companion. Get a personalized plan in minutes. Stay on track with smart nudges and daily streaks. Join the waitlist."
+        : app.summary;
+
     return {
-        title: `${app.title} — ${app.tagline}`,
-        description: app.summary,
+        title: metaTitle,
+        description: metaDescription,
         openGraph: {
-            title: `${app.title} — ${app.tagline}`,
-            description: app.summary,
+            title: metaTitle,
+            description: metaDescription,
             images: [app.thumbnailImage],
         },
     };
@@ -93,41 +100,38 @@ export default async function AppLandingPage({ params }: Props) {
                             </p>
                         </AnimatedElement>
 
-                        {/* CTA Buttons */}
+                        {/* CTA — inline waitlist form or store buttons */}
                         <AnimatedElement delay={300}>
-                            <div className="flex flex-wrap justify-center gap-4 mb-16">
-                                {app.waitlistEnabled && (
-                                    <a
-                                        href="#waitlist"
-                                        className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold text-lg rounded-lg hover:bg-primary/90 transition-all hover:scale-105"
-                                    >
-                                        {app.ctaLabel || "Get Early Access"}
-                                        <ArrowRight className="ml-2 w-5 h-5" />
-                                    </a>
-                                )}
-                                {app.appStoreLink && (
-                                    <a
-                                        href={app.appStoreLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
-                                    >
-                                        <Apple className="mr-2 w-5 h-5" />
-                                        App Store
-                                    </a>
-                                )}
-                                {app.playStoreLink && (
-                                    <a
-                                        href={app.playStoreLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
-                                    >
-                                        <Play className="mr-2 w-5 h-5" />
-                                        Google Play
-                                    </a>
-                                )}
-                            </div>
+                            {app.waitlistEnabled ? (
+                                <div className="max-w-md mx-auto mb-16">
+                                    <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
+                                </div>
+                            ) : (
+                                <div className="flex flex-wrap justify-center gap-4 mb-16">
+                                    {app.appStoreLink && (
+                                        <a
+                                            href={app.appStoreLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
+                                        >
+                                            <Apple className="mr-2 w-5 h-5" />
+                                            App Store
+                                        </a>
+                                    )}
+                                    {app.playStoreLink && (
+                                        <a
+                                            href={app.playStoreLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
+                                        >
+                                            <Play className="mr-2 w-5 h-5" />
+                                            Google Play
+                                        </a>
+                                    )}
+                                </div>
+                            )}
                         </AnimatedElement>
 
                         {/* Hero Image/Video */}
@@ -166,19 +170,27 @@ export default async function AppLandingPage({ params }: Props) {
                         <div className="grid md:grid-cols-2 gap-12 md:gap-16">
                             <AnimatedElement>
                                 <div className="p-8 rounded-xl bg-red-500/5 border border-red-500/20">
-                                    <span className="text-red-400 text-sm font-bold uppercase tracking-wider mb-4 block">
-                                        The Problem
-                                    </span>
-                                    <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed">
-                                        {app.problem}
-                                    </p>
+                                    <h3 className="text-red-400 text-sm font-bold uppercase tracking-wider mb-4 block">
+                                        {app.problemHeading || "The Problem"}
+                                    </h3>
+                                    {app.problem.includes("\n") ? (
+                                        app.problem.split("\n\n").map((para, i) => (
+                                            <p key={i} className={`text-xl md:text-2xl text-foreground/80 leading-relaxed${i > 0 ? " mt-4" : ""}`}>
+                                                {para}
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed">
+                                            {app.problem}
+                                        </p>
+                                    )}
                                 </div>
                             </AnimatedElement>
                             <AnimatedElement delay={200}>
                                 <div className="p-8 rounded-xl bg-primary/5 border border-primary/20">
-                                    <span className="text-primary text-sm font-bold uppercase tracking-wider mb-4 block">
-                                        The Solution
-                                    </span>
+                                    <h3 className="text-primary text-sm font-bold uppercase tracking-wider mb-4 block">
+                                        {app.solutionHeading || "The Solution"}
+                                    </h3>
                                     <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed">
                                         {app.solution}
                                     </p>
@@ -274,14 +286,14 @@ export default async function AppLandingPage({ params }: Props) {
                     <div className="max-w-2xl mx-auto text-center">
                         <AnimatedElement>
                             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                                Ready to try {app.title}?
+                                {app.ctaHeading || `Ready to try ${app.title}?`}
                             </h2>
                             <p className="text-xl text-foreground/70 mb-12">
-                                {app.status === "beta"
+                                {app.ctaSubtitle || (app.status === "beta"
                                     ? "Join the beta and be among the first to experience it."
                                     : app.status === "coming-soon"
                                         ? "Sign up to get notified when we launch."
-                                        : "Get started today — it's free."}
+                                        : "Get started today — it's free.")}
                             </p>
 
                             <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />

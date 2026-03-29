@@ -7,9 +7,15 @@ export type App = {
 
     // Marketing content
     problem?: string; // What pain does this solve?
+    problemHeading?: string; // Custom heading for problem section
     solution?: string; // How does your app solve it?
+    solutionHeading?: string; // Custom heading for solution section
     howItWorks?: { step: string; description: string }[]; // 3 simple steps
     features: { title: string; description: string }[]; // User-benefit focused
+
+    // Bottom CTA overrides
+    ctaHeading?: string;
+    ctaSubtitle?: string;
 
     // Media
     thumbnailImage: string;
@@ -35,24 +41,30 @@ export const apps: App[] = [
     {
         id: "nudgeme",
         title: "NudgeMe",
-        tagline: "Turn big goals into daily wins",
-        summary: "AI-powered productivity that breaks down your ambitions into actionable steps with smart reminders that actually work.",
+        tagline: "Your goals, actually done.",
+        summary: "Describe any goal. Kit, your AI companion, turns it into a step-by-step journey — then keeps you moving, one day at a time.",
 
-        problem: "You have big goals but struggle to make consistent progress. Traditional to-do apps don't understand your projects, and you lose momentum.",
-        solution: "NudgeMe uses AI to understand your goals, create realistic plans, and nudge you at the right moments to keep moving forward.",
+        problemHeading: "Sound familiar?",
+        problem: "You've tried Notion boards, habit trackers, and to-do lists. You start strong for a week, maybe two. Then the app goes quiet on your second home screen and the goal goes back on the \"someday\" pile.\n\nThe problem isn't motivation. It's that nothing helps you figure out what to do today to actually move forward.",
+
+        solutionHeading: "NudgeMe is different.",
+        solution: "You talk to Kit about your goal — in plain language, the way you'd explain it to a friend. Kit asks one or two smart questions, then builds you a real plan: phases, milestones, and daily tasks sized to your life. No templates. No blank pages. Just a conversation and a plan you'll actually follow.",
 
         howItWorks: [
-            { step: "Tell it your goal", description: "Chat naturally about what you want to achieve" },
-            { step: "Get a real plan", description: "AI breaks it into phases, tasks, and milestones" },
-            { step: "Stay on track", description: "Smart reminders adapt to your progress and schedule" },
+            { step: "Describe your goal", description: "Tell Kit what you want to accomplish — learn guitar, get in shape, launch a side project, write a book. Talk naturally. Kit gets it." },
+            { step: "Get your journey", description: "In under two minutes, Kit builds a personalized roadmap with phases, tasks, and milestones. Drag, edit, and make it yours." },
+            { step: "Show up daily", description: "Kit sends you the right nudge at the right time. Complete one small task a day, build your streak, and watch your journey come to life." },
         ],
 
         features: [
-            { title: "Conversational Planning", description: "Just describe your goal,  the AI handles the breakdown into actionable tasks" },
-            { title: "Adaptive Reminders", description: "Notifications that learn your patterns and nudge you when you're most likely to act" },
-            { title: "Visual Roadmaps", description: "See your entire project at a glance with phases, dependencies, and progress" },
-            { title: "Streak & Progress", description: "Daily goals and streaks keep you motivated without overwhelming you" },
+            { title: "AI that actually plans", description: "Kit doesn't hand you a template. It listens to your goal, asks the right questions, and builds a plan from scratch — phases, tasks, and milestones tailored to you." },
+            { title: "Nudges, not nagging", description: "Smart reminders that know what you're working on and when you're most likely to act. Context-aware, well-timed, and easy to ignore on a bad day." },
+            { title: "Your journey, visualized", description: "A roadmap that fills in as you make progress. Phases, milestones, and a streak counter that makes showing up feel rewarding." },
+            { title: "Built for real life", description: "Skip a day? Kit adjusts. Change direction? Kit replans. Your journey adapts to how your life actually works — not the other way around." },
         ],
+
+        ctaHeading: "Ready to actually finish something?",
+        ctaSubtitle: "Join the waitlist. We're inviting the next group of beta testers soon.",
 
         thumbnailImage: "/apps/nudgeme/thumbnail.png",
         images: [
@@ -63,7 +75,7 @@ export const apps: App[] = [
         ],
 
         status: "beta",
-        ctaLabel: "Join the Waitlist",
+        ctaLabel: "Get Early Access",
         waitlistEnabled: true,
         featured: true,
         order: 1,
