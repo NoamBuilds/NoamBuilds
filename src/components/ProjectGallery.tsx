@@ -89,7 +89,7 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
     return (
         <>
             {/* Gallery Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-auto">
+            <div className="grid grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
                 {mediaData.map((media, index) => {
                     const isLandscape = media.orientation === "landscape";
                     const isPortrait = media.orientation === "portrait";
@@ -99,12 +99,12 @@ export default function ProjectGallery({ images, projectTitle }: ProjectGalleryP
                             key={index}
                             onClick={() => openModal(index)}
                             className={`
-                                relative border border-white/10 overflow-hidden 
+                                relative rounded-[2rem] border-[6px] border-white/10 overflow-hidden
                                 hover:border-primary/50 transition-colors cursor-pointer
-                                bg-dark-grey flex items-center justify-center
-                                ${isLandscape ? "col-span-2 h-48 md:h-64" : ""}
-                                ${isPortrait ? "col-span-1 h-64 md:h-80" : ""}
-                                ${media.orientation === "unknown" ? "col-span-1 h-48 md:h-64" : ""}
+                                bg-black flex items-center justify-center
+                                ${isLandscape ? "col-span-2 h-56 md:h-72" : ""}
+                                ${isPortrait ? "col-span-1 h-80 md:h-[28rem]" : ""}
+                                ${media.orientation === "unknown" ? "col-span-1 h-80 md:h-[28rem]" : ""}
                             `}
                         >
                             {media.type === "video" ? (
