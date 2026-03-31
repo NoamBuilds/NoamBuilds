@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ArrowRight, Check, Loader2, Mail } from "lucide-react";
 
 type WaitlistFormProps = {
@@ -26,21 +26,6 @@ export default function WaitlistForm({ appId, ctaLabel = "Join Waitlist" }: Wait
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [message, setMessage] = useState("");
-    const [isConfirmed, setIsConfirmed] = useState(false);
-
-    // Check for confirmation status in URL
-    useEffect(() => {
-        if (typeof window === "undefined") return;
-        const params = new URLSearchParams(window.location.search);
-        const confirmed = params.get("confirmed");
-        if (confirmed === "1" || confirmed === "already") {
-            setIsConfirmed(true);
-            setMessage(confirmed === "already"
-                ? "You're already confirmed! 🎉"
-                : "You're on the list! 🎉"
-            );
-        }
-    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -69,17 +54,14 @@ export default function WaitlistForm({ appId, ctaLabel = "Join Waitlist" }: Wait
 
             setStatus("success");
             setMessage(data.message);
-            if (data.alreadyConfirmed) {
-                setIsConfirmed(true);
-            }
         } catch (error) {
             setStatus("error");
             setMessage("Network error. Please try again.");
         }
     };
 
-    // Already confirmed state
-    if (isConfirmed) {
+    // Success state — full replacement
+    if (status === "success") {
         return (
             <div className="flex flex-col items-center gap-4 p-6 border border-primary/30 bg-primary/5">
                 <div className="flex items-center gap-2 text-primary text-xl font-bold">
@@ -124,20 +106,10 @@ export default function WaitlistForm({ appId, ctaLabel = "Join Waitlist" }: Wait
                 </button>
             </div>
 
-            {/* Status message */}
-            {message && (
-                <p
-                    className={`mt-4 text-center text-sm ${status === "error" ? "text-red-400" : "text-primary"
-                        }`}
-                >
+            {/* Error message */}
+            {message && status === "error" && (
+                <p className="mt-4 text-center text-sm text-red-400">
                     {message}
-                </p>
-            )}
-
-            {/* Success state */}
-            {status === "success" && !isConfirmed && (
-                <p className="mt-2 text-center text-foreground/50 text-xs">
-                    Check your inbox and confirm your email to secure your spot.
                 </p>
             )}
 
@@ -150,4 +122,3 @@ export default function WaitlistForm({ appId, ctaLabel = "Join Waitlist" }: Wait
         </form>
     );
 }
-
