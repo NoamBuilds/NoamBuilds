@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   // Find signup by token hash
   const { data: signup, error: findError } = await supabase
     .from("waitlist_signups")
-    .select("id, app_id, status")
+    .select("id, app_id, status, email, referrer, utm_source, utm_medium, utm_campaign")
     .eq("confirm_token_hash", tokenHash)
     .single();
 
@@ -50,6 +50,31 @@ export async function GET(request: NextRequest) {
   if (updateError) {
     console.error("Confirm error:", updateError);
     return NextResponse.redirect(new URL("/?error=confirm_failed", request.url));
+  }
+
+  // Add confirmed contact to Loops for drip campaign
+  if (process.env.LOOPS_API_KEY && signup.email) {
+    try {
+      await fetch("https://app.loops.so/api/v1/contacts/create", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.LOOPS_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: signup.email,
+          source: [
+            "waitlist",
+            signup.utm_source,
+            signup.utm_medium,
+            signup.utm_campaign,
+          ].filter(Boolean).join(" / "),
+          ...(signup.referrer && { referrer: signup.referrer }),
+        }),
+      });
+    } catch (err) {
+      console.error("Loops API error:", err);
+    }
   }
 
   // Success! Redirect to the app page with success indicator
