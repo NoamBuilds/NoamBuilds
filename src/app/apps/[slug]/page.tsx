@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? "NudgeMe - Your Goals, Actually Done"
         : `${app.title} - ${app.tagline}`;
     const metaDescription = app.id === "nudgeme"
-        ? "Describe any goal to Kit, your AI companion. Get a personalized plan in minutes. Stay on track with smart nudges and daily streaks. Join the waitlist."
+        ? "Describe any goal to Pip, your AI companion. Get a personalized plan in minutes. Stay on track with smart nudges and daily streaks. Join the waitlist."
         : app.summary;
 
     return {
@@ -217,7 +217,7 @@ export default async function AppLandingPage({ params }: Props) {
                             <div className="rounded-[2.5rem] border-[8px] border-white/10 overflow-hidden shadow-2xl shadow-primary/10 bg-black">
                                 <Image
                                     src="/apps/nudgeme/chat.jpg"
-                                    alt="NudgeMe chat with Kit"
+                                    alt="NudgeMe chat with Pip"
                                     width={390}
                                     height={844}
                                     className="w-full"

@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/content/site";
 import { apps } from "@/content/apps";
 import { projects } from "@/content/projects";
+import { blogArticles } from "@/content/blog";
 
 /**
  * Sitemap for SEO — auto-generated from content files.
@@ -17,6 +18,7 @@ import { projects } from "@/content/projects";
  * - 1.0 = homepage (most important)
  * - 0.8 = main sections (apps/projects lists)
  * - 0.6 = detail pages (individual apps/projects)
+ * - 0.7 = blog articles
  * - 0.5 = secondary pages (about/contact)
  */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -72,6 +74,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.6,
     }));
 
-    return [...staticPages, ...appPages, ...projectPages];
+    // Blog pages
+    const blogPages: MetadataRoute.Sitemap = [
+        {
+            url: `${baseUrl}/blog`,
+            lastModified: new Date(),
+            changeFrequency: "weekly" as const,
+            priority: 0.8,
+        },
+        ...blogArticles.map((article) => ({
+            url: `${baseUrl}/blog/${article.slug}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+        })),
+    ];
+
+    return [...staticPages, ...appPages, ...projectPages, ...blogPages];
 }
 
