@@ -68,10 +68,10 @@ export const apps: App[] = [
 
         thumbnailImage: "/apps/nudgeme/thumbnail.png",
         images: [
-            "/apps/nudgeme/home.jpg",
-            "/apps/nudgeme/chat.jpg",
-            "/apps/nudgeme/plan.jpg",
-            "/apps/nudgeme/roadmap.jpg",
+            "/apps/nudgeme/home.png",
+            "/apps/nudgeme/chat.png",
+            "/apps/nudgeme/plan.png",
+            "/apps/nudgeme/roadmap.png",
         ],
 
         status: "beta",

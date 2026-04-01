@@ -215,13 +215,16 @@ export default async function AppLandingPage({ params }: Props) {
                     <div className="max-w-lg mx-auto">
                         <AnimatedElement>
                             <div className="rounded-[2.5rem] border-[8px] border-white/10 overflow-hidden shadow-2xl shadow-primary/10 bg-black">
-                                <Image
-                                    src="/apps/nudgeme/chat.jpg"
-                                    alt="NudgeMe chat with Pip"
-                                    width={390}
-                                    height={844}
-                                    className="w-full"
-                                />
+                                <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
+                                    <iframe
+                                        src="https://www.youtube.com/embed/2a6isjDz7Zg?autoplay=1&mute=1&loop=1&playlist=2a6isjDz7Zg&playsinline=1&controls=1"
+                                        title="NudgeMe demo"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="absolute inset-0 w-full h-full"
+                                        style={{ border: "none" }}
+                                    />
+                                </div>
                             </div>
                         </AnimatedElement>
                     </div>
