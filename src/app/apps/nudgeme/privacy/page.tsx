@@ -31,7 +31,7 @@ export default function NudgeMePrivacyPage() {
                         <div className="prose prose-invert max-w-none space-y-12 text-foreground/80 leading-relaxed">
                             <section>
                                 <p className="text-lg">
-                                    This Privacy Policy explains how NudgeMe (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, uses, and protects information when you use the NudgeMe mobile app. We&apos;re an indie product. We don&apos;t sell your data, we don&apos;t share it for advertising, and we collect the minimum we need to make the app work.
+                                    This Privacy Policy explains how NudgeMe (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, uses, and protects information when you use the NudgeMe mobile app. We&apos;re an indie product based in <strong>Israel</strong>. We don&apos;t sell your data, we don&apos;t share it for advertising, and we collect the minimum we need to make the app work.
                                 </p>
                             </section>
 
@@ -51,7 +51,10 @@ export default function NudgeMePrivacyPage() {
                                         <strong>Push notification token</strong> — an opaque identifier issued by Apple or Google so we can send you nudges. We can&apos;t reverse this into a phone number or device identity.
                                     </li>
                                     <li>
-                                        <strong>Usage events</strong> — anonymized records of how you use the app (e.g. &quot;task completed&quot;, &quot;plan submitted&quot;) linked to your account so we can fix bugs and improve the product.
+                                        <strong>Usage events</strong> — anonymized records of how you use the app (e.g. &quot;task completed&quot;, &quot;plan submitted&quot;) linked to your account so we can fix bugs and improve the product. <strong>The text content of messages you type into the app is never sent to our analytics provider.</strong>
+                                    </li>
+                                    <li>
+                                        <strong>Diagnostic data</strong> — IP address and basic device info (model, OS version) collected automatically by our hosting providers when you connect to the Service.
                                     </li>
                                 </ul>
                                 <p className="mt-4">
@@ -86,25 +89,25 @@ export default function NudgeMePrivacyPage() {
                                 <p className="mb-4">NudgeMe relies on these sub-processors:</p>
                                 <ul className="list-disc pl-6 space-y-3">
                                     <li>
-                                        <strong>Supabase</strong> — database, authentication, and edge functions.{" "}
+                                        <strong>Supabase</strong> — authentication, database, and edge functions (push notification delivery runs through here too).{" "}
                                         <a className="text-primary underline" href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">
                                             supabase.com/privacy
                                         </a>
                                     </li>
                                     <li>
-                                        <strong>Anthropic</strong> — Claude API powers Pip&apos;s responses.{" "}
+                                        <strong>Anthropic</strong> — Claude AI powers Pip&apos;s responses.{" "}
                                         <a className="text-primary underline" href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer">
                                             anthropic.com/legal/privacy
                                         </a>
                                     </li>
                                     <li>
-                                        <strong>PostHog</strong> — anonymized product analytics.{" "}
+                                        <strong>PostHog (EU-hosted)</strong> — product analytics. Events are tied to your account ID and email, but the content of messages you type into the app is not sent to PostHog.{" "}
                                         <a className="text-primary underline" href="https://posthog.com/privacy" target="_blank" rel="noopener noreferrer">
                                             posthog.com/privacy
                                         </a>
                                     </li>
                                     <li>
-                                        <strong>Expo</strong> — push notification delivery.{" "}
+                                        <strong>Expo</strong> — push notification routing.{" "}
                                         <a className="text-primary underline" href="https://expo.dev/privacy-explained" target="_blank" rel="noopener noreferrer">
                                             expo.dev/privacy-explained
                                         </a>
@@ -113,6 +116,15 @@ export default function NudgeMePrivacyPage() {
                                         <strong>Apple / Google</strong> — sign-in providers (only if you choose those options).
                                     </li>
                                 </ul>
+                            </section>
+
+                            <section>
+                                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                                    International data transfers
+                                </h2>
+                                <p>
+                                    NudgeMe is operated from Israel, and our sub-processors run servers in the EU and United States. By using NudgeMe, you consent to your information being processed in jurisdictions whose data-protection laws may differ from your own. We take reasonable steps to ensure your data is treated securely and in line with this Privacy Policy regardless of where it&apos;s stored.
+                                </p>
                             </section>
 
                             <section>
@@ -137,10 +149,46 @@ export default function NudgeMePrivacyPage() {
 
                             <section>
                                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                                    Retention
+                                </h2>
+                                <p>
+                                    We retain your account data and content for as long as your account is active. Once you delete your account, we permanently remove it (and all associated journeys, tasks, and messages) within 30 days. Aggregated, non-identifying usage events may be retained longer for product analytics.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                                    Security
+                                </h2>
+                                <p>
+                                    We use industry-standard encryption in transit (HTTPS/TLS) and rely on Supabase&apos;s row-level security to ensure that one user can&apos;t read another user&apos;s data. No method of transmission or storage is 100% secure, and we can&apos;t guarantee absolute security — but we take reasonable steps to protect your data and we&apos;ll notify you if we ever become aware of a breach affecting your account.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                                    Legal disclosures
+                                </h2>
+                                <p>
+                                    We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g. a court or government agency), or where we believe in good faith that disclosure is necessary to comply with a legal obligation, protect the rights or safety of NudgeMe&apos;s users or the public, or investigate fraud or wrongdoing related to the Service.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                                     Children
                                 </h2>
                                 <p>
-                                    NudgeMe is not directed at children under 13. We don&apos;t knowingly collect data from children under 13. If you believe a child has signed up, contact us and we&apos;ll delete the account.
+                                    NudgeMe is not directed at children under 13. We don&apos;t knowingly collect data from children under 13. If you believe a child has signed up, contact us and we&apos;ll delete the account. If your country requires parental consent for processing personal data of older minors, please contact us before signing up so we can meet that requirement.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                                    Links to other sites
+                                </h2>
+                                <p>
+                                    NudgeMe may link out to third-party sites (e.g. our sub-processors&apos; privacy policies). We don&apos;t control those sites and aren&apos;t responsible for their content or privacy practices — review their policies separately.
                                 </p>
                             </section>
 
@@ -149,7 +197,7 @@ export default function NudgeMePrivacyPage() {
                                     Changes to this policy
                                 </h2>
                                 <p>
-                                    We&apos;ll update this page when anything material changes and bump the &quot;Last updated&quot; date above. Significant changes will also be communicated in-app.
+                                    We&apos;ll update this page when anything material changes and bump the &quot;Last updated&quot; date above. Significant changes will also be communicated in-app or by email.
                                 </p>
                             </section>
 
