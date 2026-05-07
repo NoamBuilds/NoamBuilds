@@ -12,12 +12,12 @@ export default function FeaturedApps() {
         techStack: [], // Apps don't show tech stack on homepage
         thumbnailImage: app.thumbnailImage,
         primaryAction: {
-            label: "Learn more",
-            href: `/apps/${app.id}`,
+            label: app.externalLink ? (app.ctaLabel || "Visit site") : "Learn more",
+            href: app.externalLink || `/apps/${app.id}`,
         },
         githubLink: undefined,
         demoLink: app.appStoreLink || app.playStoreLink,
-        badge: app.status === "beta" ? "Beta" : app.status === "coming-soon" ? "Coming soon" : undefined,
+        badge: app.status === "live" ? "Live" : app.status === "beta" ? "Beta" : app.status === "coming-soon" ? "Coming soon" : undefined,
     }));
 
     return (

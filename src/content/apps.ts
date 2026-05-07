@@ -28,6 +28,11 @@ export type App = {
     appStoreLink?: string;
     playStoreLink?: string;
 
+    // External landing override — when set, the card links straight to this URL
+    // and the on-site /apps/[slug] detail page is skipped (used for apps that
+    // already have a dedicated landing on another domain, e.g. appeventsnap.com).
+    externalLink?: string;
+
     // Display
     featured: boolean;
     order: number;
@@ -38,6 +43,37 @@ export type App = {
 };
 
 export const apps: App[] = [
+    {
+        id: "event-snap",
+        title: "Event Snap",
+        tagline: "Into your calendar in a snap.",
+        summary: "Snap a flyer, paste a message, or share a link. Claude reads the event and saves it straight to your calendar. No typing, no accounts, no servers.",
+
+        features: [
+            { title: "Snap or share anything", description: "Camera, gallery, paste, or the share sheet. Feed it whatever and it figures out the event." },
+            { title: "Claude does the reading", description: "Title, time, location, and notes, all from a single call to the Claude API." },
+            { title: "Straight to your calendar", description: "Writes to your phone's native Google Calendar through EventKit and CalendarContract. No middleman." },
+            { title: "No account, no backend", description: "Made for one phone. Your events never touch a server I run." },
+        ],
+
+        thumbnailImage: "/apps/event-snap/og.png",
+        images: [
+            "/apps/event-snap/home.png",
+            "/apps/event-snap/edit.png",
+            "/apps/event-snap/share-success.png",
+            "/apps/event-snap/share.webm",
+            "/apps/event-snap/processing.webm",
+        ],
+
+        status: "beta",
+        ctaLabel: "Visit appeventsnap.com",
+        waitlistEnabled: false,
+        externalLink: "https://appeventsnap.com",
+        featured: true,
+        order: 0,
+        category: "ProductivityApplication",
+        platforms: "iOS, Android",
+    },
     {
         id: "nudgeme",
         title: "NudgeMe",
@@ -74,9 +110,10 @@ export const apps: App[] = [
             "/apps/nudgeme/roadmap.png",
         ],
 
-        status: "beta",
+        status: "live",
         ctaLabel: "Get Early Access",
         waitlistEnabled: true,
+        appStoreLink: "https://apps.apple.com/il/app/nudgeme-stay-consistent/id6755693201",
         featured: true,
         order: 1,
         category: "ProductivityApplication",

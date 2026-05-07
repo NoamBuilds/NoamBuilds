@@ -13,6 +13,12 @@ type Slide = {
 
 const slides: Slide[] = [
     {
+        media: "/apps/event-snap/share.webm",
+        title: "Event Snap",
+        href: "https://appeventsnap.com",
+        type: "video",
+    },
+    {
         media: "/apps/panicpoll/thumbnail-demo.mp4",
         title: "PanicPoll",
         href: "/apps/panic-poll",
@@ -73,7 +79,7 @@ export default function HeroCarousel() {
                         loop
                         muted
                         playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-contain"
                     />
                 ) : (
                     <Image
@@ -81,7 +87,7 @@ export default function HeroCarousel() {
                         src={currentSlide.media}
                         alt={currentSlide.title}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         priority
                     />
                 )}

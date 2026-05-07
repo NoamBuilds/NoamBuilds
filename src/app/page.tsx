@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import HeroCarousel from "@/components/HeroCarousel";
 import AnimatedElement from "@/components/AnimatedElement";
 import SkillsMarquee from "@/components/SkillsMarquee";
+import LatestVideo from "@/components/LatestVideo";
 import PhilosophySection from "@/components/PhilosophySection";
 import FeaturedApps from "@/components/FeaturedApps";
 import FeaturedProjects from "@/components/FeaturedProjects";
@@ -64,6 +65,9 @@ export default function Home() {
 
       {/* Skills Marquee */}
       <SkillsMarquee />
+
+      {/* Latest YouTube vlog */}
+      <LatestVideo />
 
       {/* Philosophy Section */}
       <PhilosophySection />

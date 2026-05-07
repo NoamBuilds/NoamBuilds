@@ -31,7 +31,10 @@ export default function AppsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {apps.map((app, index) => (
                             <AnimatedElement key={app.id} delay={100 * index}>
-                                <Link href={`/apps/${app.id}`} className="group block h-full">
+                                <Link
+                                    href={app.externalLink || `/apps/${app.id}`}
+                                    className="group block h-full"
+                                >
                                     <div className="border border-white/10 hover:border-primary/50 rounded-xl transition-all duration-300 overflow-hidden h-full flex flex-col">
                                         {/* Image/Video */}
                                         <div className="relative aspect-video overflow-hidden bg-dark-grey">

@@ -15,6 +15,38 @@ export type Project = {
 
 export const projects: Project[] = [
     {
+        id: "event-snap",
+        title: "Event Snap",
+        summary: "Mobile app that turns photos, pasted text, and shared links into calendar events using AI. Paired with a Next.js marketing site at appeventsnap.com.",
+        description: `Event Snap is a personal mobile app built around one specific friction: never typing an event into your calendar again. Snap a flyer, paste a WhatsApp message, or share a ticket page from any app. The AI reads it and saves a structured event straight to your phone's Google Calendar. Made for one phone. No backend, no accounts.
+
+**Core Features:**
+- Capture from anywhere: camera, gallery, paste, the iOS or Android share sheet, or a shared URL the app fetches and reads
+- AI extracts title, time, location, and notes with token and cost telemetry on every event
+- Inline edit on the result screen. Tap any field to fix what the AI missed before saving
+- Reminders: a Settings default plus a per event override, with timed offsets and all-day presets
+
+**Technical Architecture:**
+- Expo SDK 55 plus Expo Router for file based navigation, modal routes, and share intent integration
+- React Native and TypeScript. One phone, no auth, no backend by design
+- AsyncStorage for preferences, EAS Update for OTA releases (JS only)
+- PostHog product analytics with a typed event taxonomy, dev time property assertions, and prod redaction
+- Next.js 16 plus Tailwind v4 marketing site at appeventsnap.com (Loops API for the email waitlist, brutal primitives ported 1:1 from the mobile app)`,
+        techStack: ["Expo", "React Native", "TypeScript", "Claude API", "expo-calendar", "expo-share-intent", "PostHog", "EAS Update", "Next.js", "Tailwind"],
+        thumbnailImage: "/apps/event-snap/og.png",
+        images: [
+            "/apps/event-snap/home.png",
+            "/apps/event-snap/edit.png",
+            "/apps/event-snap/share-success.png",
+            "/apps/event-snap/share.webm",
+            "/apps/event-snap/processing.webm",
+        ],
+        demoLink: "https://appeventsnap.com",
+        githubLink: "private",
+        featured: true,
+        order: 0,
+    },
+    {
         id: "nudgeme",
         title: "NudgeMe",
         summary: "AI-powered productivity app with conversational project planning, smart reminders, and visual roadmaps.",

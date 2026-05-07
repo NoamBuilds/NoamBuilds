@@ -1,16 +1,19 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
-import { Apple, Play, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { apps, getAppById } from "@/content/apps";
 import { siteConfig } from "@/content/site";
 import AnimatedElement from "@/components/AnimatedElement";
 import ProjectGallery from "@/components/ProjectGallery";
 import WaitlistForm from "@/components/WaitlistForm";
+import StoreBadge from "@/components/StoreBadge";
 import type { Metadata } from "next";
 
 // --- STATIC GENERATION ---
 export async function generateStaticParams() {
-    return apps.map((app) => ({ slug: app.id }));
+    return apps
+        .filter((app) => !app.externalLink)
+        .map((app) => ({ slug: app.id }));
 }
 
 // --- DYNAMIC METADATA ---
@@ -45,6 +48,7 @@ export default async function AppLandingPage({ params }: Props) {
     const app = getAppById(slug);
 
     if (!app) notFound();
+    if (app.externalLink) redirect(app.externalLink);
 
     // JSON-LD Schema
     const jsonLd = {
@@ -100,38 +104,25 @@ export default async function AppLandingPage({ params }: Props) {
                             </p>
                         </AnimatedElement>
 
-                        {/* CTA - inline waitlist form or store buttons */}
+                        {/* CTA - store badges and/or inline waitlist (both can render) */}
                         <AnimatedElement delay={300}>
-                            {app.waitlistEnabled ? (
-                                <div className="max-w-md mx-auto mb-16">
-                                    <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
-                                </div>
-                            ) : (
-                                <div className="flex flex-wrap justify-center gap-4 mb-16">
-                                    {app.appStoreLink && (
-                                        <a
-                                            href={app.appStoreLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
-                                        >
-                                            <Apple className="mr-2 w-5 h-5" />
-                                            App Store
-                                        </a>
-                                    )}
-                                    {app.playStoreLink && (
-                                        <a
-                                            href={app.playStoreLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center px-6 py-4 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all"
-                                        >
-                                            <Play className="mr-2 w-5 h-5" />
-                                            Google Play
-                                        </a>
-                                    )}
-                                </div>
-                            )}
+                            <div className="flex flex-col items-center gap-8 mb-16">
+                                {(app.appStoreLink || app.playStoreLink) && (
+                                    <div className="flex flex-wrap justify-center items-center gap-4">
+                                        {app.appStoreLink && (
+                                            <StoreBadge store="apple" href={app.appStoreLink} />
+                                        )}
+                                        {app.playStoreLink && (
+                                            <StoreBadge store="google" href={app.playStoreLink} />
+                                        )}
+                                    </div>
+                                )}
+                                {app.waitlistEnabled && (
+                                    <div className="max-w-md w-full">
+                                        <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
+                                    </div>
+                                )}
+                            </div>
                         </AnimatedElement>
 
                         {/* Hero Image/Video */}
@@ -216,13 +207,13 @@ export default async function AppLandingPage({ params }: Props) {
                         <AnimatedElement>
                             <div className="rounded-[2.5rem] border-[8px] border-white/10 overflow-hidden shadow-2xl shadow-primary/10 bg-black">
                                 <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
-                                    <iframe
-                                        src="https://www.youtube.com/embed/2a6isjDz7Zg?autoplay=1&mute=1&loop=1&playlist=2a6isjDz7Zg&playsinline=1&controls=1"
-                                        title="NudgeMe demo"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                        className="absolute inset-0 w-full h-full"
-                                        style={{ border: "none" }}
+                                    <video
+                                        src="/apps/nudgeme/thumbnail-demo.mp4"
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="absolute inset-0 w-full h-full object-cover"
                                     />
                                 </div>
                             </div>
@@ -342,7 +333,21 @@ export default async function AppLandingPage({ params }: Props) {
                                         : "Get started today. It's free.")}
                             </p>
 
-                            <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
+                            <div className="flex flex-col items-center gap-8">
+                                {(app.appStoreLink || app.playStoreLink) && (
+                                    <div className="flex flex-wrap justify-center items-center gap-4">
+                                        {app.appStoreLink && (
+                                            <StoreBadge store="apple" href={app.appStoreLink} />
+                                        )}
+                                        {app.playStoreLink && (
+                                            <StoreBadge store="google" href={app.playStoreLink} />
+                                        )}
+                                    </div>
+                                )}
+                                <div className="w-full">
+                                    <WaitlistForm appId={app.id} ctaLabel={app.ctaLabel} />
+                                </div>
+                            </div>
                         </AnimatedElement>
                     </div>
                 </section>
